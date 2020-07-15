@@ -9,6 +9,19 @@ class MarkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    return new MaterialApp(
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text("Hello"),
+            ),
+            body: HomePage()));
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
     TextEditingController textEditingController = new TextEditingController();
 
     var buttons = <Widget>[
@@ -23,21 +36,16 @@ class MarkApp extends StatelessWidget {
       )
     ];
 
-    return new MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Hello"),
-            ),
-            body: Container(
-              color: Colors.amber,
-              alignment: Alignment.center,
-              margin: EdgeInsets.all(40),
-              padding: EdgeInsets.all(30),
-              child: ListView(
-                children: buttons,
+    return Container(
+      color: Colors.amber,
+      alignment: Alignment.center,
+      margin: EdgeInsets.all(40),
+      padding: EdgeInsets.all(30),
+      child: ListView(
+        children: buttons,
 //              mainAxisAlignment: MainAxisAlignment.center,
 //              crossAxisAlignment: CrossAxisAlignment.stretch, //雖然是填滿, 但卻填不滿= =
-              ),
-            )));
+      ),
+    );
   }
 }

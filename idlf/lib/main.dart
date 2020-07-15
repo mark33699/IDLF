@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:idlf/next_page.dart';
 
 void main() {
   runApp(MarkApp());
@@ -10,24 +11,16 @@ class MarkApp extends StatelessWidget {
 
     TextEditingController textEditingController = new TextEditingController();
 
-    void pressed() {
-      print(textEditingController.text);
-    }
-
     var buttons = <Widget>[
-      Image.asset(
-        "resource/images/market.png",
-        width: 50,
-        height: 100,
-        fit: BoxFit.none,
-      ),
-      Image.network(
-          "https://img.alicdn.com/imgextra/i4/1033561790/TB2PfEQg17JL1JjSZFKXXc4KXXa_%21%211033561790.jpg"),
-      FadeInImage(
-          image: NetworkImage("https://img.alicdn.com/imgextra/i4/1033"),
-          placeholder: AssetImage("resource/images/market.png")),
-      IconButton(onPressed: pressed, icon: Icon(Icons.favorite)),
-      TextField(controller: textEditingController, decoration: InputDecoration(hintText: "你有什麼秘密偷偷跟我說我不會告訴別人"),)
+      OutlineButton(
+          child: Text("要去了"),
+          onPressed: () {
+            print("push");
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NextPage()));
+          }
+      )
     ];
 
     return new MaterialApp(

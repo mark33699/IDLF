@@ -11,6 +11,23 @@ class BottomNavigationPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    //為了改tabBar的顏色
+    return DefaultTabController(
+        length: tabs.length,
+        child: Column(
+          children: <Widget>[
+            Container(
+              child: TabBar(tabs: tabs),
+              color: Colors.blueGrey,
+            ),
+            Expanded(child: TabBarView(
+              children: pages,
+            )),
+          ],
+        )
+    );
+
+    //直接把TabBar放到AppBar的位置
     return DefaultTabController(
         length: tabs.length,
         child: Scaffold(

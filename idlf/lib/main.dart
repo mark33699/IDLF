@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:idlf/next_page.dart';
+import 'package:idlf/bottom_navigation_page_2.dart';
+import 'package:idlf/bottom_navigation_page_3.dart';
+import 'package:idlf/home_page.dart';
 
 void main() {
-  runApp(MarkApp());
+//  runApp(MarkApp());
 //  runApp(MyApp());
+  runApp(BottomNavigationApp());
 }
 
 class MarkApp extends StatelessWidget {
@@ -28,95 +31,47 @@ class MarkApp extends StatelessWidget {
   }
 }
 
-class HomePage extends StatefulWidget {
+//=================================================
+
+class BottomNavigationApp extends StatelessWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+          body: BottomNavigationPage(),
+        ));
+  }
 }
 
-class _HomePageState extends State<HomePage> {
+class BottomNavigationPage extends StatefulWidget {
+  @override
+  _BottomNavigationPageState createState() => _BottomNavigationPageState();
+}
 
-  var result = "";
-  String yearOld = "";
+class _BottomNavigationPageState extends State<BottomNavigationPage> {
+
+  int currentIndex = 0;
+  final pages = [HomePage(), BottomNavigationPage2(), BottomNavigationPage3()];
+  final items = [BottomNavigationBarItem(title: Text("首頁"), icon: Icon(Icons.home)),
+                 BottomNavigationBarItem(title: Text("第二頁"), icon: Icon(Icons.favorite)),
+                 BottomNavigationBarItem(title: Text("第三頁"), icon: Icon(Icons.account_box)),];
 
   @override
   Widget build(BuildContext context) {
-
-//    String yearOld = ""; //放這邊是不會刷新的喔
-
-    TextEditingController textEditingController = new TextEditingController();
-
-    //竟然要先定義才能call????
-    void pushNextPage(BuildContext context) async {
-      result = await Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => NextPage(
-            currentString: textEditingController.text,)));
-
-      setState((){});
-    }
-
-    Future<String> showAlert(BuildContext content) async {
-      String answer = "";
-
-      return showDialog(
-          context: context,
-          builder: (BuildContext content) {
-            return AlertDialog(
-              title: Text("彈窗"),
-              content: Row( //用Center會有上下空白, 用Column會下方空很大一塊
-                children: <Widget>[
-                  Expanded(child: TextField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                        labelText: "請問今年貴庚",
-                        hintText: "輸入框就是要輸入啊不然要幹嘛"
-                    ),
-                    onChanged: (value) {
-                      answer = value;
-                    },
-                  ))
-                ],
-              ),
-              actions: <Widget>[
-                RaisedButton(
-                    child: Text("好"),
-                    onPressed: () {
-                      Navigator.pop(context, answer);
-                    }),
-                RaisedButton(
-                    child: Text("才不告訴你～勒～"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-              ],
-            );
-          });
-    }
-
-    var widgets = <Widget>[
-//      TextField(controller: textEditingController),
-      OutlineButton(
-          child: Text("要去了"),
-          onPressed: () async {
-//            pushNextPage(context);
-             yearOld = await showAlert(context);
-             setState(() {});
-          }
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("底部導航"),
       ),
-//      Text("回禮是 $result")
-      Text("您是$yearOld歲")
-    ];
-
-    return Container(
-      color: Colors.amber,
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(40),
-      padding: EdgeInsets.all(30),
-      child: ListView(
-        children: widgets,
-//              mainAxisAlignment: MainAxisAlignment.center,
-//              crossAxisAlignment: CrossAxisAlignment.stretch, //雖然是填滿, 但卻填不滿= =
-      ),
+      body: pages[currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          items: items,
+          currentIndex: currentIndex,
+          fixedColor: Colors.blue,
+          onTap: (int index) {
+            setState(() {
+              currentIndex = index;
+        });
+      }),
     );
   }
 }

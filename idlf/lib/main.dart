@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:idlf/bottom_navigation_page_2.dart';
 import 'package:idlf/bottom_navigation_page_3.dart';
@@ -6,14 +8,15 @@ import 'package:idlf/home_page.dart';
 void main() {
 //  runApp(MarkApp());
 //  runApp(MyApp());
-  runApp(BottomNavigationApp());
+//  runApp(BottomNavigationApp());
+  runApp(GridApp());
 }
 
 class MarkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return new MaterialApp(
+    return MaterialApp(
         home: Scaffold(
             appBar: AppBar(
               title: Text("Hello"),
@@ -27,6 +30,44 @@ class MarkApp extends StatelessWidget {
             print("沒事");
           }),
         )
+    );
+  }
+}
+
+//=================================================
+
+class GridApp extends StatelessWidget {
+
+  Random random = new Random();
+
+  final colors = [
+    Colors.red,
+    Colors.orange,
+    Colors.yellow,
+    Colors.green,
+    Colors.blue,
+    Colors.indigo,
+    Colors.purple,
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+      home: Scaffold(
+        body: GridView.count(
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 5,
+          crossAxisCount: 3,
+          children: List.generate(100, (index) =>
+              Container(
+                alignment: Alignment.center,
+                  child: Text("$index"),
+                  color: colors[random.nextInt(7)]
+              )
+          ),
+        )
+      )
     );
   }
 }

@@ -15,7 +15,16 @@ class MarkApp extends StatelessWidget {
             appBar: AppBar(
               title: Text("Hello"),
             ),
-            body: HomePage()));
+            body: HomePage(),
+          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add_call),
+              elevation: 0.5,
+              onPressed: () {
+            print("沒事");
+          }),
+        )
+    );
   }
 }
 

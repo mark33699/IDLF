@@ -3,13 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:idlf/bottom_navigation_page_2.dart';
 import 'package:idlf/bottom_navigation_page_3.dart';
+import 'package:idlf/counter_change_notifier.dart';
 import 'package:idlf/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
 //  runApp(MarkApp());
 //  runApp(MyApp());
 //  runApp(BottomNavigationApp());
-  runApp(GridApp());
+//  runApp(GridApp());
+  runApp(ProviderApp());
 }
 
 class MarkApp extends StatelessWidget {
@@ -68,6 +71,22 @@ class GridApp extends StatelessWidget {
           ),
         )
       )
+    );
+  }
+}
+
+//=================================================
+
+class ProviderApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    //Provider step2 註冊廣播器
+    return MultiProvider(
+        providers: [ChangeNotifierProvider.value(
+          value: CounterChangeNotifier()
+        )],
+      child: BottomNavigationApp(),
     );
   }
 }

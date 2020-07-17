@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:idlf/counter_change_notifier.dart';
+import 'package:provider/provider.dart';
 
 class TabBarPage1 extends StatelessWidget {
   @override
@@ -6,7 +8,13 @@ class TabBarPage1 extends StatelessWidget {
     return Container(
       color: Colors.deepPurpleAccent,
       alignment: Alignment.center,
-      child: Text("第2.1頁"),
+      child: Column(children: <Widget>[
+        Text("第2.1頁"),
+
+        //Provider step5 或是直接取值(類似singleton)
+        Text("${ Provider.of<CounterChangeNotifier>(context).count }")
+      ],
+        mainAxisAlignment: MainAxisAlignment.center,)
     );
   }
 }

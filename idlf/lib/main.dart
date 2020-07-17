@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_file_path_provider/flutter_file_path_provider.dart';
 import 'package:idlf/bottom_navigation_page_2.dart';
 import 'package:idlf/bottom_navigation_page_3.dart';
 import 'package:idlf/counter_change_notifier.dart';
@@ -8,31 +9,29 @@ import 'package:idlf/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-//  runApp(MarkApp());
+
+  //這邊拿不到
+//  FlutterFilePathProvider.instance.getHomeDirectory().then((result) {
+//    print("路徑：${result.directory}");
+//  });
+
+  runApp(MarkApp());
 //  runApp(MyApp());
 //  runApp(BottomNavigationApp());
 //  runApp(GridApp());
-  runApp(ProviderApp());
+//  runApp(ProviderApp());
 }
 
 class MarkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    FlutterFilePathProvider.instance.getHomeDirectory().then((result) {
+      print("路徑：${result.directory}");
+    });
+
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text("Hello"),
-            ),
-            body: HomePage(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.add_call),
-              elevation: 0.5,
-              onPressed: () {
-            print("沒事");
-          }),
-        )
+        home: HomePage()
     );
   }
 }

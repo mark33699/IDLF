@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/next_page.dart';
+import 'package:idlf/tab_bar_page_3.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,13 +11,36 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   var result = "";
-  String yearOld = "";
+  String yearOld = "0";
+
+  void getCount () async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      yearOld = (pref.getString("count") ?? "0");
+      print("拿到$yearOld");
+    });
+  }
+
+  void setCount (String count) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      pref.setString("count", count);
+      yearOld = count;
+      print("設定$yearOld");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCount();
+    print("初始$yearOld");
+  }
 
   @override
   Widget build(BuildContext context) {
 
 //    String yearOld = ""; //放這邊是不會刷新的喔
-
     TextEditingController textEditingController = new TextEditingController();
 
     //竟然要先定義才能call????
@@ -23,7 +48,9 @@ class _HomePageState extends State<HomePage> {
       result = await Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NextPage(
-            currentString: textEditingController.text,)));
+            currentString: textEditingController.text,)
+          )
+      );
 
       setState((){});
     }
@@ -39,6 +66,7 @@ class _HomePageState extends State<HomePage> {
               content: Row( //用Center會有上下空白, 用Column會下方空很大一塊
                 children: <Widget>[
                   Expanded(child: TextField(
+                    keyboardType: TextInputType.number,
                     autofocus: true,
                     decoration: InputDecoration(
                         labelText: "請問今年貴庚",
@@ -73,23 +101,63 @@ class _HomePageState extends State<HomePage> {
           onPressed: () async {
 //            pushNextPage(context);
              yearOld = await showAlert(context);
-             setState(() {});
+             setCount(yearOld);
           }
       ),
 //      Text("回禮是 $result")
-      Text("您是$yearOld歲")
+      Text("您是${ yearOld ?? 0 }歲")
     ];
 
-    return Container(
-      color: Colors.amber,
-      alignment: Alignment.center,
-      margin: EdgeInsets.all(40),
-      padding: EdgeInsets.all(30),
-      child: ListView(
-        children: widgets,
+    var floatingButtons = [
+      FloatingActionButton(
+        heroTag: 1,
+        child: Icon(Icons.add),
+        elevation: 0.5,
+        onPressed: () {
+
+          int count = int.parse(yearOld);
+          count++;
+          setCount("$count");
+
+        }),
+
+      SizedBox(width: 10),
+
+      FloatingActionButton(
+          heroTag: 2,
+          child: Icon(Icons.navigate_next),
+          elevation: 0.5,
+          onPressed: () {
+            print("gogogo");
+
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) {
+                return NextPage(currentString: "I Love U",);
+              }));
+          }),
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Hello"),
+      ),
+
+      body: Container(
+        color: Colors.amber,
+        alignment: Alignment.center,
+        margin: EdgeInsets.all(40),
+        padding: EdgeInsets.all(30),
+        child: ListView(
+          children: widgets,
 //              mainAxisAlignment: MainAxisAlignment.center,
 //              crossAxisAlignment: CrossAxisAlignment.stretch, //雖然是填滿, 但卻填不滿= =
+        ),
       ),
+
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: Row(
+        children: floatingButtons,
+        mainAxisAlignment: MainAxisAlignment.end,)
     );
   }
 }

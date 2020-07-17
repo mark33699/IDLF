@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:idlf/tab_bar_page_1.dart';
-import 'package:idlf/tab_bar_page_2.dart';
-import 'package:idlf/tab_bar_page_3.dart';
+import 'package:idlf/page/tab_bar_page_1.dart';
+import 'package:idlf/page/tab_bar_page_2.dart';
+import 'package:idlf/page/tab_bar_page_3.dart';
 
 class BottomNavigationPage2 extends StatelessWidget {
 

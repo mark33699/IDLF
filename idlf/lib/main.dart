@@ -2,10 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_file_path_provider/flutter_file_path_provider.dart';
-import 'package:idlf/bottom_navigation_page_2.dart';
-import 'package:idlf/bottom_navigation_page_3.dart';
+import 'package:idlf/page/bottom_navigation_page_2.dart';
+import 'package:idlf/page/bottom_navigation_page_3.dart';
 import 'package:idlf/counter_change_notifier.dart';
-import 'package:idlf/home_page.dart';
+import 'package:idlf/page/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,9 +26,9 @@ class MarkApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    FlutterFilePathProvider.instance.getHomeDirectory().then((result) {
-      print("路徑：${result.directory}");
-    });
+//    FlutterFilePathProvider.instance.getHomeDirectory().then((result) {
+//      print("路徑：${result.directory}");
+//    });
 
     return MaterialApp(
         home: HomePage()

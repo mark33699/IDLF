@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:idlf/next_page.dart';
-import 'package:idlf/tab_bar_page_3.dart';
+import 'package:idlf/api.dart';
+import 'package:idlf/page/next_page.dart';
+import 'package:idlf/page/tab_bar_page_3.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getCount();
     print("初始$yearOld");
+    APIManager().getStore();
   }
 
   @override

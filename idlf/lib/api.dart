@@ -1,9 +1,11 @@
-
-
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:idlf/model/store.dart';
+import 'package:http/http.dart' as http;
+
+//flutter 处理HTTP请求的三种基本方案(非常完整)
+//https://www.toutiao.com/i6787626378570236428/
 
 class APIManager {
 
@@ -70,5 +72,18 @@ class APIManager {
 
     var url = "$domain/api/login";
 
+    var client = new http.MultipartRequest("post", Uri.parse(url));
+    client.fields["token"] = token;
+    client.send().then((http.StreamedResponse response) {
+      if (response.statusCode == 200) {
+        response.stream.transform(utf8.decoder).join().then((String string) {
+          print(string);
+        });
+      } else {
+        print('error');
+      }
+    }).catchError((error) {
+      print(error);
+    });
   }
 }

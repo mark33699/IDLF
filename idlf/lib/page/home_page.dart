@@ -37,8 +37,8 @@ class _HomePageState extends State<HomePage> {
     getCount();
     print("初始$yearOld");
 //    APIManager().getStore();
-//    APIManager().login("xxxxx");
-    APIManager().purchase();
+    APIManager().login("xxxxx");
+//    APIManager().purchase();
   }
 
   @override

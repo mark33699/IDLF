@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:idlf/api.dart';
 import 'package:idlf/page/next_page.dart';
@@ -18,7 +21,7 @@ class _HomePageState extends State<HomePage> {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
       yearOld = (pref.getString("count") ?? "0");
-      print("拿到$yearOld");
+//      print("拿到$yearOld");
     });
   }
 
@@ -27,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       pref.setString("count", count);
       yearOld = count;
-      print("設定$yearOld");
+//      print("設定$yearOld");
     });
   }
 
@@ -35,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getCount();
-    print("初始$yearOld");
+//    print("初始$yearOld");
 //    APIManager().getStore();
     APIManager().login("xxxxx");
 //    APIManager().purchase();
@@ -104,6 +107,9 @@ class _HomePageState extends State<HomePage> {
           child: Text("要去了"),
           onPressed: () async {
 //            pushNextPage(context);
+
+            debugDumpApp();
+//            debugDumpRenderTree();
              yearOld = await showAlert(context);
              setCount(yearOld);
           }

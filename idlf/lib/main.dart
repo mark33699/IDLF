@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_file_path_provider/flutter_file_path_provider.dart';
 import 'package:idlf/page/bottom_navigation_page_2.dart';
 import 'package:idlf/page/bottom_navigation_page_3.dart';
@@ -14,6 +15,8 @@ void main() {
 //  FlutterFilePathProvider.instance.getHomeDirectory().then((result) {
 //    print("路徑：${result.directory}");
 //  });
+
+//  debugPaintPointersEnabled = true;
 
   runApp(MarkApp());
 //  runApp(MyApp());

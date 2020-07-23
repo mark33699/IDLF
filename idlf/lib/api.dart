@@ -77,7 +77,7 @@ class APIManager {
     client.send().then((http.StreamedResponse response) {
       if (response.statusCode == 200) {
         response.stream.transform(utf8.decoder).join().then((String string) {
-          print(string);
+//          print(string);
         });
       } else {
         print('error');

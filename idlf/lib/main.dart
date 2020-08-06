@@ -8,6 +8,7 @@ import 'package:idlf/page/bottom_navigation_page_3.dart';
 import 'package:idlf/counter_change_notifier.dart';
 import 'package:idlf/page/home_page.dart';
 import 'package:idlf/page/form_page.dart';
+import 'package:idlf/page/lesson_list_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -19,7 +20,8 @@ void main() {
 
 //  debugPaintPointersEnabled = true;
 
-  runApp(MarkApp());
+//  runApp(MarkApp());
+  runApp(LessonApp());
 //  runApp(MyApp());
 //  runApp(BottomNavigationApp());
 //  runApp(GridApp());
@@ -37,6 +39,19 @@ class MarkApp extends StatelessWidget {
     return MaterialApp(
 //        home: HomePage()
         home: FormPage()
+    );
+  }
+}
+
+//=================================================
+
+
+class LessonApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+        home: LessonListPage()
     );
   }
 }

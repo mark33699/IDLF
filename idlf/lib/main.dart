@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_file_path_provider/flutter_file_path_provider.dart';
+import 'package:idlf/define.dart';
 import 'package:idlf/page/bottom_navigation_page_2.dart';
 import 'package:idlf/page/bottom_navigation_page_3.dart';
 import 'package:idlf/counter_change_notifier.dart';
@@ -62,16 +63,6 @@ class GridApp extends StatelessWidget {
 
   Random random = new Random();
 
-  final colors = [
-    Colors.red,
-    Colors.orange,
-    Colors.yellow,
-    Colors.green,
-    Colors.blue,
-    Colors.indigo,
-    Colors.purple,
-  ];
-
   @override
   Widget build(BuildContext context) {
 
@@ -85,7 +76,7 @@ class GridApp extends StatelessWidget {
               Container(
                 alignment: Alignment.center,
                   child: Text("$index"),
-                  color: colors[random.nextInt(7)]
+                  color: rainbowColors[random.nextInt(rainbowColors.length)]
               )
           ),
         )

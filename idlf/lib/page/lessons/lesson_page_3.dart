@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'lesson_page_3_align.dart';
+import 'lesson_page_3_decorated.dart';
 import 'lesson_page_3_padding.dart';
 
 class LessonPage3 extends StatelessWidget {
 
-  final pages = [LessonPageAlign(), LessonPagePadding()];
-  final tabs = [Tab(text: "Align"), Tab(text: "Padding")];
+  final pages = [LessonPageAlign(), LessonPagePadding(), LessonPageDecoratedBox()];
+  final tabs = [Tab(text: "Align"), Tab(text: "Padding"), Tab(text: "DecoratedBox")];
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,7 @@ class LessonPage3 extends StatelessWidget {
       ),
       body: DefaultTabController(
           length: tabs.length,
+          initialIndex: tabs.length - 1,
           child: Column(
             children: <Widget>[
               Container(

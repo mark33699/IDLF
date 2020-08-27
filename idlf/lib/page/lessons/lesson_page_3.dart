@@ -21,7 +21,13 @@ class LessonPage3 extends StatelessWidget {
             children: <Widget>[
               Container(
                 color: Colors.blue,
-                child: TabBar(tabs: tabs),
+                child: FractionallySizedBox( //用這個包起來可以延伸但會置左
+                    widthFactor: 1,
+                    child: TabBar(
+                        tabs: tabs,
+                        isScrollable: true //可滾動會讓tab緊縮置中(不滾動就平均分佈, 如lesson2)
+                    )
+                )
               ),
               Expanded(child: TabBarView(children: pages))
             ],

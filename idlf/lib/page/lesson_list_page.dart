@@ -3,6 +3,7 @@ import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_1.dart';
 import 'lessons/lesson_page_2.dart';
 import 'lessons/lesson_page_3.dart';
+import 'lessons/lesson_page_4.dart';
 
 class LessonListPage extends StatelessWidget {
 
@@ -10,7 +11,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.mail_outline), 1, "跳轉", LessonPage1()),
     Lesson(Icon(Icons.inbox), 2, "佈局", LessonPage2()),
     Lesson(Icon(Icons.not_listed_location), 3, "容器", LessonPage3()),
-    Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPage1()),
+    Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPage4()),
     Lesson(Icon(Icons.beach_access), 5, "按鈕與提示", LessonPage1()),
   ];
 

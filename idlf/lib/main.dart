@@ -9,7 +9,7 @@ import 'package:idlf/page/bottom_navigation_page_3.dart';
 import 'package:idlf/counter_change_notifier.dart';
 import 'package:idlf/page/home_page.dart';
 import 'package:idlf/page/form_page.dart';
-import 'package:idlf/page/lesson_list_page.dart';
+import 'package:idlf/page/lessons/lesson_list_page.dart';
 import 'package:provider/provider.dart';
 
 void main() {

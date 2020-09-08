@@ -7,6 +7,7 @@ import 'lesson_page_3.dart';
 import 'lesson_page_4.dart';
 import 'lesson_page_5.dart';
 import 'lesson_page_6.dart';
+import 'lesson_page_7.dart';
 
 class LessonListPage extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPage4()),
     Lesson(Icon(Icons.chat), 5, "按鈕與提示", LessonPage5()),
     Lesson(Icon(Icons.image), 6, "圖片", LessonPage6()),
-    Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPageX()),
+    Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPage7()),
   ];
 
   @override

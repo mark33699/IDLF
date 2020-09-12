@@ -90,8 +90,14 @@ class _LessonPage7State extends State<LessonPage7> {
                           alignment: Alignment.topRight,
                           child: RaisedButton(
                             child: Text("Android TimePicker"),
-                            onPressed: (){
-
+                            onPressed: () async {
+                              var date = await showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now()
+                              );
+                              setState(() {
+                                choosed = date == null ? "沒選= =" : "$date";
+                              });
                             }),
                         ),
                         Align(

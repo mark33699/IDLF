@@ -12,6 +12,8 @@ class _LessonPage7State extends State<LessonPage7> {
   String choosed = "你選擇的是";
   Widget selector;
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
 
@@ -62,7 +64,47 @@ class _LessonPage7State extends State<LessonPage7> {
       ],
     );
 
+    Widget mediaWrap = Container(
+      color: Colors.greenAccent,
+      child: Wrap(
+        children: <Widget>[
+          ListTile(
+              leading: Icon(Icons.music_note),
+              title: Text('Music'),
+              onTap: () => {
+                setState(() {
+                  choosed = "音樂";
+                  Navigator.pop(context);
+                })
+              }
+          ),
+          new ListTile(
+            leading: Icon(Icons.videocam),
+            title: Text('Video'),
+            onTap: () => {
+              setState(() {
+                choosed = "影片";
+                Navigator.pop(context);
+              })
+            },
+          ),
+        ],
+      ),
+    );
+
+    void showModalMediaBottomSheet(context){
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext bc) => mediaWrap
+      );
+    }
+
+    void showMediaBottomSheet(BuildContext context, ScaffoldState scaffoldState){
+      scaffoldState.showBottomSheet((context) => mediaWrap);
+    }
+
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text("第七堂課"),
         ),
@@ -116,7 +158,8 @@ class _LessonPage7State extends State<LessonPage7> {
                           child: RaisedButton(
                             child: Text("BottomSheet"),
                             onPressed: (){
-
+//                              showModalMediaBottomSheet(context); //蓋頁
+                              showMediaBottomSheet(context, scaffoldKey.currentState); //滑動
                             }),
                         ),
                         Align(

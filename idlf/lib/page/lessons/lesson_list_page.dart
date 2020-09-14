@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/model/Lesson.dart';
-import 'scaffold_template.dart';
 import 'lesson_page_1.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -8,6 +7,7 @@ import 'lesson_page_4.dart';
 import 'lesson_page_5.dart';
 import 'lesson_page_6.dart';
 import 'lesson_page_7.dart';
+import 'lesson_page_8.dart';
 
 class LessonListPage extends StatelessWidget {
 
@@ -16,9 +16,10 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.inbox), 2, "佈局", LessonPage2()),
     Lesson(Icon(Icons.not_listed_location), 3, "容器", LessonPage3()),
     Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPage4()),
-    Lesson(Icon(Icons.chat), 5, "按鈕與提示", LessonPage5()),
+    Lesson(Icon(Icons.warning), 5, "按鈕與提示", LessonPage5()),
     Lesson(Icon(Icons.image), 6, "圖片", LessonPage6()),
     Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPage7()),
+    Lesson(Icon(Icons.message), 8, "列表", LessonPage8()),
   ];
 
   @override

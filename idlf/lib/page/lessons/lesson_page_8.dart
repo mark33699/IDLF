@@ -7,8 +7,6 @@ class LessonPage8 extends StatefulWidget {
 
 class _LessonPage8State extends State<LessonPage8> {
 
-  final listViewController = ScrollController();
-
   var messages = [//1,2,3];
     "歷史訊息",
     "歷史不能被遺忘",
@@ -37,6 +35,17 @@ class _LessonPage8State extends State<LessonPage8> {
     "總算超過一頁了吧"
   ];
 
+  final listViewController = ScrollController();
+  final textFieldController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      listViewController.jumpTo(listViewController.position.maxScrollExtent);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -55,13 +64,20 @@ class _LessonPage8State extends State<LessonPage8> {
         body: Column(children: <Widget>[
           Expanded(child: list),
           TextField(
+            controller: textFieldController,
             decoration: InputDecoration(
               labelText: '有什麼話想說？',
               prefixIcon: Icon(Icons.message),
             ),
+            onTap: () {
+              listViewController.jumpTo(listViewController.position.maxScrollExtent); //為何無效??
+            },
             onSubmitted: (text) {
+              textFieldController.clear(); //放到setState裡反而不會清掉??
               setState(() {
-                messages.add(text);
+                if (text.length > 0) {
+                  messages.add(text);
+                }
                 listViewController.jumpTo(listViewController.position.maxScrollExtent);
               });
             },
@@ -80,13 +96,23 @@ class MessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    //return Image.asset("resource/images/bubble_outlined.png");
     return Container(
       padding: EdgeInsets.all(8),
       alignment: Alignment.centerRight,
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: 200), //如何得到父組件的寬度？
-        child: Text(message),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(24, 16, 32, 16),
+          child: Text(message,
+            style: TextStyle(color: Colors.white),
+          ),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("resource/images/bubble_full_tail.png"),
+              fit: BoxFit.fill
+            )
+          )
+        )
       )
     );
   }

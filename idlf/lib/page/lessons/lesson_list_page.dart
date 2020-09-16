@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/model/Lesson.dart';
+import 'package:idlf/page/lessons/lesson_page_10.dart';
 import 'lesson_page_1.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -22,6 +23,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPage7()),
     Lesson(Icon(Icons.message), 8, "列表", LessonPage8()),
     Lesson(Icon(Icons.transform), 9, "兩種tab bar", LessonPage9()),
+    Lesson(Icon(Icons.account_box), 10, "API & model", LessonPage10()),
   ];
 
   @override

@@ -1,32 +1,36 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:idlf/model/store.dart';
 import 'package:http/http.dart' as http;
+import 'package:idlf/model/User.dart';
 
 //flutter 处理HTTP请求的三种基本方案(非常完整)
 //https://www.toutiao.com/i6787626378570236428/
 
+typedef UsersCallback = void Function(Users);
+
 class APIManager {
 
-  final domain = "https://app.angelsctek.com";
+  final domain = "https://reqres.in/api";
 
-  void getStore() async {
-
-    var url = "$domain/api/get_market_store?store_id=137";
+  void getUsers(UsersCallback success) async {
+    var urlString = "$domain/users?per_page=100";
 
     try {
-      var request = await HttpClient().getUrl(Uri.parse(url));
+      var request = await HttpClient().getUrl(Uri.parse(urlString));
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
-        var json = await response.transform(utf8.decoder).join();
-        var angelMap = jsonDecode(json);
-        var angelAPI = AngelAPI.fromJson(angelMap);
-        print("店號${angelAPI.result.number}");
+
+        var jsonString = await response.transform(utf8.decoder).join();
+        var jsonMap = jsonDecode(jsonString);
+        var users = Users.fromJson(jsonMap);
+//        return users;
+        success(users);
 
       } else {
         print("Http NG");
       }
+
     } catch (exp) {
       print("Http Fail is $exp");
     }

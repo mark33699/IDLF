@@ -7,24 +7,24 @@ class LessonPageX extends StatelessWidget {
         appBar: AppBar(
           title: Text("第X堂課"),
         ),
-        body:Container()
+        body: Container()
     );
   }
 }
 
 class LessonPageY extends StatefulWidget {
   @override
-  _LessonPage8State createState() => _LessonPage8State();
+  _LessonPageYState createState() => _LessonPageYState();
 }
 
-class _LessonPage8State extends State<LessonPageY> {
+class _LessonPageYState extends State<LessonPageY> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text("第八堂課"),
         ),
-        body:Container()
+        body: Container()
     );
   }
 }

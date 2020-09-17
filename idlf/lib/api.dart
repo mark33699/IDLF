@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
 import 'package:idlf/model/User.dart';
 
 //flutter 处理HTTP请求的三种基本方案(非常完整)
@@ -87,6 +89,18 @@ class APIManager {
         fail(error.toString());
       });
      */
+
+    //3.Dio.........還是零分
+    try {
+      Response response = await Dio()
+        .post(urlString,
+          data: {"email":email, "password":password},
+          options: Options(contentType:Headers.formUrlEncodedContentType));
+      print(response.data);
+      success();
+    } catch (e) {
+      fail(e.toString());
+    }
   }
 }
 

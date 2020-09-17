@@ -10,19 +10,70 @@ class LessonPage10 extends StatefulWidget {
 class _LessonPage10State extends State<LessonPage10> {
 
   Users currentUsers;
+  String errorMessage = "";
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController pwdController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    APIManager().getUsers((users) {
-      setState(() {
-        currentUsers = users;
-      });
+//    APIManager().getUsers((users) {
+//      setState(() {
+//        currentUsers = users;
+//      });
+//    });
+    APIManager().login(
+//      "eve.holt@reqres.in",
+//      "cityslicka", () {
+
+        "0908969412",
+        "121212", () {
+
+        setState(() {
+          errorMessage = "我成功了";
+        });
+
+    }, (e) {
+        setState(() {
+          errorMessage = e;
+        });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
+    var auth = Container(
+      constraints: BoxConstraints(maxHeight: 400, maxWidth: 200),
+      child: Column(
+        children: <Widget>[
+          TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.account_circle),
+              )
+          ),
+          SizedBox(height: 20),
+          TextField(
+              controller: pwdController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.vpn_key),
+              )
+          ),
+          SizedBox(height: 20),
+          OutlineButton(
+              child: Text("LOGIN"),
+              onPressed: (){
+
+          }),
+          SizedBox(height: 20),
+          Text(errorMessage,
+            style: TextStyle(color: Colors.red),
+          )
+        ],
+      ),
+    );
 
     var hud = Container(
       alignment: Alignment.center,
@@ -54,7 +105,7 @@ class _LessonPage10State extends State<LessonPage10> {
         appBar: AppBar(
           title: Text("第十堂課"),
         ),
-        body: (currentUsers == null) ? hud : list
+        body: Center(child: auth) //(currentUsers == null) ? hud : list
     );
   }
 }

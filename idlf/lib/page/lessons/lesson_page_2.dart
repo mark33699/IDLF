@@ -7,7 +7,7 @@ import 'package:idlf/page/lessons/lesson_page_2_expanded.dart';
 class LessonPage2 extends StatelessWidget {
 
   final pages = [LessonPageColumn(), LessonPageRow(), LessonPageExpanded(), LessonPageStack()];
-  final tabs = [Tab(text: "Column"), Tab(text: "Row"), Tab(text: "Expand"), Tab(text: "Stack")];
+  final tabs = [Tab(text: "Column"), Tab(text: "Row"), Tab(text: "Expanded"), Tab(text: "Stack")];
 
   @override
   Widget build(BuildContext context) {

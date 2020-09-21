@@ -35,11 +35,20 @@ class LessonDecoratedBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(25), //切背景
         boxShadow: [BoxShadow(offset: Offset(3.0,3.0), blurRadius: 6.0)] //為何要指定多組陰影？
       ),
-      child: ClipRRect( //切前景
-        clipBehavior: Clip.antiAlias,
-        borderRadius: BorderRadius.circular(50),
-        child: SizedBox(height: 100, width: 100, child: label)
-      )
+      child: //SizedBox(height: 100, width: 100, child: label)
+        ClipRRect( //切前景
+          clipBehavior: Clip.antiAlias,
+          borderRadius: BorderRadius.circular(50),
+          child: SizedBox(height: 100, width: 100, child: label)
+        )
+        //套兩層DecoratedBox好像沒用
+//        DecoratedBox(
+//          child: SizedBox(height: 100, width: 100, child: label),
+//          position: DecorationPosition.foreground,
+//          decoration: BoxDecoration(
+//            borderRadius: BorderRadius.circular(50)
+//          )
+//        )
     );
   }
 }

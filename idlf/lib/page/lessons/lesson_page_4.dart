@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -11,11 +12,28 @@ class LessonPage4 extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: Colors.red)
   );
+  final richText = Text.rich(
+    TextSpan(
+      children: [
+        TextSpan(text: "請您同意："),
+        TextSpan(text: "隱私權條款",
+          //recognizer: _tapRecognizer,
+          style: TextStyle(
+            color: Colors.blueAccent,
+            decoration: TextDecoration.underline
+          )
+        )
+      ]
+    )
+  );
 
   final pwdFocus = FocusNode();
   final mobileField = TextField(
       controller: null,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.multiline,
+      maxLines: 10,
+      maxLength: 15,
+      maxLengthEnforced: false,
       autofocus: true,
       decoration: InputDecoration(
           icon: Icon(Icons.account_circle),
@@ -51,7 +69,7 @@ class LessonPage4 extends StatelessWidget {
         ),
         body: ListView(
           scrollDirection: Axis.vertical,
-          itemExtent: 100,
+//          itemExtent: 100,
           children: <Widget>[
             Container(
               color: Colors.greenAccent,
@@ -61,6 +79,9 @@ class LessonPage4 extends StatelessWidget {
               color: Colors.blueAccent,
               alignment: Alignment.center,
               child: specialText
+            ),
+            Center(
+              child: richText,
             ),
             Container(
               color: Colors.greenAccent,

@@ -8,9 +8,11 @@ class LessonPage4 extends StatelessWidget {
   final normalText = Text("我就是一個樸實無華的text");
   final specialText = Text("我是一個置中/粗體/20 size/紅字的text",
       textAlign: TextAlign.center,
-      style: TextStyle(fontSize: 20,
+      style: TextStyle(
+          fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Colors.red)
+          color: Colors.red
+      )
   );
   final richText = Text.rich(
     TextSpan(

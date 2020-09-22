@@ -42,7 +42,8 @@ class LessonPage5 extends StatelessWidget {
       print("答案是 $ans");
     });
     final cupertinoButton = CupertinoButton(child: Text("CupertinoButton"), onPressed: () async {
-      bool ans = await showDialog(context: context,
+      bool ans = await showCupertinoDialog (
+        context: context,
         builder: (BuildContext content) {
             return CupertinoButtonAlertDialog();
           }

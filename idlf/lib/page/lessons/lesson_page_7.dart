@@ -69,16 +69,16 @@ class _LessonPage7State extends State<LessonPage7> {
       child: Wrap(
         children: <Widget>[
           ListTile(
-              leading: Icon(Icons.music_note),
-              title: Text('Music'),
-              onTap: () => {
-                setState(() {
-                  choosed = "音樂";
-                  Navigator.pop(context);
-                })
-              }
+            leading: Icon(Icons.music_note),
+            title: Text('Music'),
+            onTap: () => {
+              setState(() {
+                choosed = "音樂";
+                Navigator.pop(context);
+              })
+            }
           ),
-          new ListTile(
+          ListTile(
             leading: Icon(Icons.videocam),
             title: Text('Video'),
             onTap: () => {

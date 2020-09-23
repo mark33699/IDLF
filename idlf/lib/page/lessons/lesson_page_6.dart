@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:idlf/page/lessons/lesson_page_6_basis.dart';
-import 'package:idlf/page/lessons/lesson_page_6_fit.dart';
+import 'package:idlf/page/lessons/lesson_page_6_image_basis.dart';
+import 'package:idlf/page/lessons/lesson_page_6_image_fit.dart';
 
 class LessonPage6 extends StatelessWidget {
 

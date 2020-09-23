@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/model/Lesson.dart';
-import 'package:idlf/page/lessons/lesson_page_10.dart';
-import 'lesson_page_1.dart';
+import 'package:idlf/page/lessons/lesson_page_10_api_get.dart';
+import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
-import 'lesson_page_4.dart';
-import 'lesson_page_5.dart';
+import 'lesson_page_4_text_field.dart';
+import 'lesson_page_5_button_dialog.dart';
 import 'lesson_page_6.dart';
-import 'lesson_page_7.dart';
+import 'lesson_page_7_selector.dart';
 import 'lesson_page_8.dart';
-import 'lesson_page_9.dart';
+import 'lesson_page_9_bottomNavigation.dart';
 
 class LessonListPage extends StatelessWidget {
 

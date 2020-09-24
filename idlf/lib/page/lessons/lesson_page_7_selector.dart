@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-class LessonPage7 extends StatefulWidget {
+class LessonPageSelector extends StatefulWidget {
   @override
-  _LessonPage7State createState() => _LessonPage7State();
+  _LessonPageSelectorState createState() => _LessonPageSelectorState();
 }
 
-class _LessonPage7State extends State<LessonPage7> {
+class _LessonPageSelectorState extends State<LessonPageSelector> {
 
   double bottomWidgetHeight = 0.01;
   String choosed = "你選擇的是";

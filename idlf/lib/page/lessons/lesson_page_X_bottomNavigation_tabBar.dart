@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LessonPage9 extends StatefulWidget {
+class LessonPageBottomNavigationAndTabBar extends StatefulWidget {
   @override
-  _LessonPage9State createState() => _LessonPage9State();
+  _LessonPageBottomNavigationAndTabBarState createState() => _LessonPageBottomNavigationAndTabBarState();
 }
 
-class _LessonPage9State extends State<LessonPage9> {
+class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNavigationAndTabBar> {
 
   int currentIndex = 1;
   final pages = [

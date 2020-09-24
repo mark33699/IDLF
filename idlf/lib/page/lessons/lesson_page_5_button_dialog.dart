@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart' show TargetPlatform;
 
-class LessonPage5 extends StatelessWidget {
+class LessonPageButtonAndDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {

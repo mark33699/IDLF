@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class LessonPage4 extends StatelessWidget {
+class LessonPageTextAndField extends StatelessWidget {
 
   //宣告成變數好像就不能hot reload了...
   final normalText = Text("我就是一個樸實無華的text");

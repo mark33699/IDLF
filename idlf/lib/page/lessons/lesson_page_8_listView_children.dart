@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LessonPageChildren extends StatelessWidget {
+class LessonPageListViewChildren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
@@ -10,7 +10,8 @@ class LessonPageChildren extends StatelessWidget {
       child: FlutterLogo(),
     );
 
-    return ListView(
+    var list = ListView(
+      shrinkWrap: true,
       children: [
         ListTile(
           leading: listLogo,
@@ -44,6 +45,14 @@ class LessonPageChildren extends StatelessWidget {
           dense: true,
         ),
       ],
+    );
+
+    return Container(
+      color: Colors.green,
+      child: Container(
+        color: Colors.orange,
+        child: list,
+      ),
     );
   }
 }

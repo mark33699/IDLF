@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LessonPageFit extends StatelessWidget {
+class LessonPageImageFit extends StatelessWidget {
 
   final fits = [
     BoxFit.contain,

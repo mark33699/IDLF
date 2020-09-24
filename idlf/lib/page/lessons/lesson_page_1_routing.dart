@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class LessonPage1 extends StatelessWidget {
+class LessonPageRouting extends StatelessWidget {
 
   String showWording;
-  LessonPage1({Key k, this.showWording}) : super(key: k);
+  LessonPageRouting({Key k, this.showWording}) : super(key: k);
 
   @override
   Widget build(BuildContext context) {

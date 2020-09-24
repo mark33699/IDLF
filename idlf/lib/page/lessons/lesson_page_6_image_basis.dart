@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LessonPageBasis extends StatelessWidget {
+class LessonPageImageBasis extends StatelessWidget {
 
   final scrollController = ScrollController();
 

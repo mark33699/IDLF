@@ -3,7 +3,7 @@ import 'lesson_page_3_align.dart';
 import 'lesson_page_3_decorated.dart';
 import 'lesson_page_3_padding.dart';
 
-class LessonPage3 extends StatelessWidget {
+class LessonPageChild extends StatelessWidget {
 
   final pages = [LessonPageAlign(), LessonPagePadding(), LessonPageDecoratedBox()];
   final tabs = [Tab(text: "Align"), Tab(text: "Padding"), Tab(text: "DecoratedBox")];

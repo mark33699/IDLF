@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:idlf/page/lessons/lesson_page_6_image_basis.dart';
 import 'package:idlf/page/lessons/lesson_page_6_image_fit.dart';
 
-class LessonPage6 extends StatelessWidget {
+class LessonPageImage extends StatelessWidget {
 
-  final pages = [LessonPageBasis(), LessonPageFit()];
+  final pages = [LessonPageImageBasis(), LessonPageImageFit()];
   final tabs = [Tab(text: "Basis"), Tab(text: "Fit")];
 
   @override

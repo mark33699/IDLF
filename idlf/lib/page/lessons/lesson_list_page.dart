@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/model/Lesson.dart';
-import 'package:idlf/page/lessons/lesson_page_10_api_get.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -9,21 +8,20 @@ import 'lesson_page_5_button_dialog.dart';
 import 'lesson_page_6.dart';
 import 'lesson_page_7_selector.dart';
 import 'lesson_page_8.dart';
-import 'lesson_page_9_bottomNavigation.dart';
+import 'lesson_page_9.dart';
 
 class LessonListPage extends StatelessWidget {
 
   final List<Lesson> lessons = [
-    Lesson(Icon(Icons.mail_outline), 1, "跳轉", LessonPage1(showWording: "Hello World")),
-    Lesson(Icon(Icons.inbox), 2, "佈局", LessonPage2()),
-    Lesson(Icon(Icons.not_listed_location), 3, "容器", LessonPage3()),
-    Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPage4()),
-    Lesson(Icon(Icons.warning), 5, "按鈕與提示", LessonPage5()),
-    Lesson(Icon(Icons.image), 6, "圖片", LessonPage6()),
-    Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPage7()),
-    Lesson(Icon(Icons.message), 8, "列表", LessonPage8()),
-    Lesson(Icon(Icons.transform), 9, "兩種tab bar", LessonPage9()),
-    Lesson(Icon(Icons.account_box), 10, "API & model", LessonPage10()),
+    Lesson(Icon(Icons.mail_outline), 1, "跳轉", LessonPageRouting(showWording: "Hello World")),
+    Lesson(Icon(Icons.inbox), 2, "佈局", LessonPageLayout()),
+    Lesson(Icon(Icons.not_listed_location), 3, "容器", LessonPageChild()),
+    Lesson(Icon(Icons.print), 4, "文字與輸入", LessonPageTextAndField()),
+    Lesson(Icon(Icons.warning), 5, "按鈕與提示", LessonPageButtonAndDialog()),
+    Lesson(Icon(Icons.image), 6, "圖片", LessonPageImage()),
+    Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPageSelector()),
+    Lesson(Icon(Icons.message), 8, "列表", LessonPageListViewChildrenAndBuilder()),
+    Lesson(Icon(Icons.view_list), 9, "又是列表", LessonPageListView()),
   ];
 
   @override

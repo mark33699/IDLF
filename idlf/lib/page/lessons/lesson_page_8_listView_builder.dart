@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class LessonPageBuilder extends StatefulWidget {
+class LessonPageListViewBuilder extends StatefulWidget {
   @override
-  _LessonPageBuilderState createState() => _LessonPageBuilderState();
+  _LessonPageListViewBuilderState createState() => _LessonPageListViewBuilderState();
 }
 
-class _LessonPageBuilderState extends State<LessonPageBuilder> {
+class _LessonPageListViewBuilderState extends State<LessonPageListViewBuilder> {
 
   var messages = [//1,2,3];
     "歷史訊息",

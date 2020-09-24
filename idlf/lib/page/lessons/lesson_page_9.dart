@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:idlf/page/lessons/lesson_page_9_listView_expansion.dart';
 import 'package:idlf/page/lessons/lesson_page_9_listView_textField.dart';
 
 class LessonPageListView extends StatelessWidget {
 
-  final pages = [LessonPageListViewTextField()];
-  final tabs = [Tab(text: "textField")];
+  final pages = [LessonPageListViewTextField(), LessonPageListViewExpansion()];
+  final tabs = [Tab(text: "textField"), Tab(text: "expansion")];
 
   @override
   Widget build(BuildContext context) {

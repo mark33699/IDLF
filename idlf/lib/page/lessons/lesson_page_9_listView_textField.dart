@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
 
-class LessonPageListViewTextField extends StatelessWidget {
+class LessonPageListViewTextField extends StatefulWidget {
+  @override
+  _LessonPageListViewTextFieldState createState() => _LessonPageListViewTextFieldState();
+}
+
+class _LessonPageListViewTextFieldState extends State<LessonPageListViewTextField> {
+
+  final textFieldValues = List.generate(100, (index) => "");
+
   @override
   Widget build(BuildContext context) {
-
-    final textFieldListByChildren = ListView(
-      children: List.generate(100, (index) {
-        return TextFieldTile("${index + 1}");
-      })
-    );
-
-    final textFieldListByBuilder = ListView.builder(
+    return ListView.builder(
       itemCount: 100,
-      itemBuilder: (ctx, idx) => TextFieldTile("${(idx + 1) * 2}"),
-    );
 
-//    return textFieldListByChildren;
-    return textFieldListByBuilder;
+      itemBuilder: (ctx, idx) => TextFieldTile("${(idx + 1) * 2}", textFieldValues[idx], (text) {
+        setState(() {
+          textFieldValues[idx] = text;
+        });
+      }),
+    );
   }
 }
 
 class TextFieldTile extends StatelessWidget {
 
   String title = "";
-  TextFieldTile(this.title);
+  String value = "";
+  void Function(String) submitCallBack;
+  TextFieldTile(this.title, this.value, this.submitCallBack);
+
+  TextEditingController get fieldController => TextEditingController(text: value);
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
         child:
         //不會重疊的寫法
@@ -40,7 +48,12 @@ class TextFieldTile extends StatelessWidget {
           Container(
             padding: EdgeInsets.only(right: 8),
             width: 150,
-            child: TextField(),
+            child: TextField(
+              controller: fieldController,
+              textAlign: TextAlign.right,
+              onSubmitted: (text) {
+                submitCallBack(text);
+            }),
           )
         ])
 

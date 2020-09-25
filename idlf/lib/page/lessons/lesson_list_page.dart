@@ -21,7 +21,8 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.image), 6, "圖片", LessonPageImage()),
     Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPageSelector()),
     Lesson(Icon(Icons.message), 8, "列表", LessonPageListViewChildrenAndBuilder()),
-    Lesson(Icon(Icons.view_list), 9, "又是列表", LessonPageListView()),
+    Lesson(Icon(Icons.view_list), 9, "又是列表", LessonPageListViewTextFieldAndExpansion()),
+    Lesson(Icon(Icons.format_list_bulleted), 10, "還是～列表", LessonPageListViewTextFieldAndExpansion()),
   ];
 
   @override

@@ -51,7 +51,7 @@ class TextFieldTile extends StatelessWidget {
             child: TextField(
               controller: fieldController,
               textAlign: TextAlign.right,
-              onSubmitted: (text) {
+              onChanged: (text) {
                 submitCallBack(text);
             }),
           )

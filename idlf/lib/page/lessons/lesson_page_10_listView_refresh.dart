@@ -9,12 +9,14 @@ class LessonPageListViewRefresh extends StatefulWidget {
 class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
 
   final pageSize = 5;
+  final maxPage = 4;
   int currentPage = 1;
   List<int> fibonacci = [];
+  ScrollController _scrollController = ScrollController();
 
   List<int> _createFib() {
     List<int> fib = [];
-    print("Help~~~");
+//    print("Help~~~");
     for (var index = 0;
              index < pageSize;
              index ++) {
@@ -30,7 +32,7 @@ class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
         fib.add(fib[index - 2] + fib[index - 1]);
       }
     }
-    print(fib.toString());
+//    print(fib.toString());
     return fib;
   }
 
@@ -38,25 +40,52 @@ class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
   void initState() {
     super.initState();
     fibonacci.addAll(_createFib());
+
+    _scrollController.addListener(() {
+      //這種監聽法, 在一開始資料就沒有超過頁面時會一直轉(shrinkWrap無效, 該不會只有children才作用吧)
+      //思路1. 改監聽loading, 2.偷安插末筆資料, 3. 找其他可用的position
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        setState(() {
+          if (currentPage < maxPage) {
+            currentPage ++;
+            fibonacci.addAll(_createFib());
+          }
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    return RefreshIndicator(
+      onRefresh: () async {
+        setState(() {
+          currentPage = 1;
+          fibonacci.clear();
+          fibonacci.addAll(_createFib());
+        });
+      },
+      child: ListView.builder(
+//        shrinkWrap: true,
+        controller: _scrollController,
+        itemCount: fibonacci.length,
+        itemBuilder: (ctx, idx) {
 
-    return
-      RefreshIndicator(
-        onRefresh: () async {
-          setState(() {
-            currentPage ++;
-            fibonacci.addAll(_createFib());
-          });
-        },
-        child: ListView.builder(
-          itemCount: fibonacci.length,
-          itemBuilder: (ctx, idx) {
-            return ListTile(title: Text("${idx + 1} : ${fibonacci[idx]}")
-          );
-        })
+          //如果設為-1才看得到loading, 但會暫時看不到當頁最後一筆 (條件二是防止看不到所有資料最後一筆)
+          if (idx == fibonacci.length - 1 && currentPage < maxPage) {
+            return Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                    child: CircularProgressIndicator()
+                )
+            );
+          } else {
+            return ListTile(title: Text("${idx + 1} : ${fibonacci[idx]}"));
+          }
+        }
+      )
     );
   }
+
+
 }

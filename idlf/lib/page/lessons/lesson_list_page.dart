@@ -8,8 +8,8 @@ import 'lesson_page_5_button_dialog.dart';
 import 'lesson_page_6.dart';
 import 'lesson_page_7_selector.dart';
 import 'lesson_page_8.dart';
-import 'lesson_page_9.dart';
 import 'lesson_page_10.dart';
+import 'lesson_page_9.dart';
 
 class LessonListPage extends StatelessWidget {
 
@@ -22,8 +22,8 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.image), 6, "圖片", LessonPageImage()),
     Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPageSelector()),
     Lesson(Icon(Icons.message), 8, "列表", LessonPageListViewChildrenAndBuilder()),
-    Lesson(Icon(Icons.view_list), 9, "又是列表", LessonPageListViewTextFieldAndExpansion()),
-    Lesson(Icon(Icons.format_list_bulleted), 10, "還是～列表", LessonPageListViewHeaderAndRefresh()),
+    Lesson(Icon(Icons.view_list), 9, "又是列表", LessonPageListViewHeaderAndRefresh()),
+    Lesson(Icon(Icons.format_list_bulleted), 10, "還是～列表", LessonPageListViewTextFieldAndExpansion()),
   ];
 
   @override

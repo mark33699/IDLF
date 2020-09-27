@@ -8,7 +8,7 @@ class LessonPageListViewRefresh extends StatefulWidget {
 
 class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
 
-  final pageSize = 5;
+  final pageSize = 20;
   final maxPage = 4;
   int currentPage = 1;
   List<int> fibonacci = [];
@@ -66,7 +66,6 @@ class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
         });
       },
       child: ListView.builder(
-//        shrinkWrap: true,
         controller: _scrollController,
         itemCount: fibonacci.length,
         itemBuilder: (ctx, idx) {
@@ -86,6 +85,5 @@ class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
       )
     );
   }
-
 
 }

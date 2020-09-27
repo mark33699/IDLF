@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:idlf/page/lessons/lesson_page_9_listView_expansion.dart';
-import 'package:idlf/page/lessons/lesson_page_9_listView_textField.dart';
+import 'package:idlf/page/lessons/lesson_page_9_listView_stickyHeader.dart';
+import 'package:idlf/page/lessons/lesson_page_9_listView_refresh.dart';
 
-class LessonPageListViewTextFieldAndExpansion extends StatelessWidget {
+class LessonPageListViewHeaderAndRefresh extends StatelessWidget {
 
-  final pages = [LessonPageListViewTextField(), LessonPageListViewExpansion()];
-  final tabs = [Tab(text: "textField"), Tab(text: "expansion")];
+  final pages = [LessonPageListViewPinnedHeader(), LessonPageListViewRefresh()];
+  final tabs = [Tab(text: "sticky header"), Tab(text: "refresh / load more")];
 
   @override
   Widget build(BuildContext context) {

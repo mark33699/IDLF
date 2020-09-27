@@ -7,13 +7,46 @@ class LessonPageListViewTextField extends StatefulWidget {
 
 class _LessonPageListViewTextFieldState extends State<LessonPageListViewTextField> {
 
-  final textFieldValues = List.generate(100, (index) => "");
+  final textFieldValues = List.generate(30, (index) => "");
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 100,
 
+    //還是會跑掉
+    /*
+    return ListView(children: <Widget>[
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+      TextFieldTile("", "", null),
+    ]);
+    */
+
+    return ListView.builder(
+      itemCount: textFieldValues.length,
       itemBuilder: (ctx, idx) => TextFieldTile("${(idx + 1) * 2}", textFieldValues[idx], (text) {
         setState(() {
           textFieldValues[idx] = text;
@@ -27,8 +60,8 @@ class TextFieldTile extends StatelessWidget {
 
   String title = "";
   String value = "";
-  void Function(String) submitCallBack;
-  TextFieldTile(this.title, this.value, this.submitCallBack);
+  void Function(String) changeCallBack;
+  TextFieldTile(this.title, this.value, this.changeCallBack);
 
   TextEditingController get fieldController => TextEditingController(text: value);
 
@@ -52,7 +85,7 @@ class TextFieldTile extends StatelessWidget {
               controller: fieldController,
               textAlign: TextAlign.right,
               onChanged: (text) {
-                submitCallBack(text);
+                changeCallBack(text);
             }),
           )
         ])

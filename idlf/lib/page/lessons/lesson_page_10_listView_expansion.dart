@@ -72,7 +72,7 @@ class LessonPageListViewExpansion extends StatelessWidget {
       itemCount: groups.length,
       itemBuilder: (ctx, idx) {
         final group = groups[idx];
-        return _getTile(group, 0);//_getTile(group);
+        return _getTile(group, 0);
     });
 
   }

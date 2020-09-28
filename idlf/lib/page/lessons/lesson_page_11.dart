@@ -14,7 +14,7 @@ class LessonPageListViewCheckBoxAndSwipe extends StatelessWidget {
         title: Text("第十一堂課"),
       ),
       body: DefaultTabController(
-          initialIndex: 0,
+          initialIndex: 1,
           length: tabs.length,
           child: Scaffold( //可以兩層Scaffold
               appBar: TabBar(tabs: tabs, labelColor: Colors.black54),

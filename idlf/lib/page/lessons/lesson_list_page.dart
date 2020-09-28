@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
+import 'package:idlf/page/lessons/slidable_example.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -26,6 +27,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.format_list_numbered), 9, "又是列表", LessonPageListViewHeaderAndRefresh()),
     Lesson(Icon(Icons.format_list_bulleted), 10, "還是～列表", LessonPageListViewTextFieldAndExpansion()),
     Lesson(Icon(Icons.playlist_add_check), 11, "裁判～可以讓人列完又列這樣的嗎？", LessonPageListViewCheckBoxAndSwipe()),
+    Lesson(Icon(Icons.playlist_add_check), 99, "側滑範例", SliableExamplePage(title: "側滑官方範例")),
   ];
 
   @override

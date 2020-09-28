@@ -13,8 +13,9 @@ class SliableItem{
   final String title;
   final String subTitle;
   final Widget actionPane;
+  final bool canDelete;
 
-  SliableItem(this.title, this.subTitle, this.actionPane);
+  SliableItem(this.title, this.subTitle, this.actionPane, this.canDelete);
 }
 
 class LessonPageListViewSwipe extends StatefulWidget {
@@ -24,21 +25,20 @@ class LessonPageListViewSwipe extends StatefulWidget {
 
 class _LessonPageListViewSwipeState extends State<LessonPageListViewSwipe> {
 
+  List slidableItems = [
+    SliableItem("Behind效果", "Action像在Tile的背面\n(最靠外面的Action最先出現)",
+        SlidableBehindActionPane(), false),
+    SliableItem("Scroll效果", "Action像在Tile的兩側\n(最靠中間的Action最先出現)",
+        SlidableScrollActionPane(), false),
+    SliableItem("Strech效果", "Action像在Tile的兩側\n(Action同時出現, 沒有重疊的感覺)",
+        SlidableStrechActionPane(), false),
+    SliableItem("Drawer效果", "Action像在Tile的兩側\n(Action同時出現, 會有重疊的感覺)",
+        SlidableDrawerActionPane(), false),
+    SliableItem("送我一程吧~~~~", "", SlidableStrechActionPane(), true),
+  ];
+
   @override
   Widget build(BuildContext context) {
-
-    final slidableItems = [
-      SliableItem("Behind效果", "Action像在Tile的背面\n(最靠外面的Action最先出現)",
-          SlidableBehindActionPane()),
-      SliableItem("Scroll效果", "Action像在Tile的兩側\n(最靠中間的Action最先出現)",
-          SlidableScrollActionPane()),
-      SliableItem("Strech效果", "Action像在Tile的兩側\n(Action同時出現, 沒有重疊的感覺)",
-          SlidableStrechActionPane()),
-      SliableItem("Drawer效果", "Action像在Tile的兩側\n(Action同時出現, 會有重疊的感覺)",
-          SlidableDrawerActionPane()),
-    ];
-
-    int showItemCount = slidableItems.length + 1;
 
     void _showSnackBar(SliableType actionType, int index) {
       final tapInfo = "$index is ${actionType.toString()}";
@@ -101,42 +101,45 @@ class _LessonPageListViewSwipeState extends State<LessonPageListViewSwipe> {
       );
     }
 
-    final dismissalKey = "送我一程吧~~~~";
-    final dismissalItem = Slidable(
-      key: Key(dismissalKey),
-      actionPane: SlidableStrechActionPane(),
-      actionExtentRatio: 0.25,
-      child: Container(
-        color: Colors.white,
-        child: ListTile(
-          title: Text(dismissalKey,
-            style: TextStyle(color: Colors.redAccent),
+    Widget _createSlidableDismissalListTile(int index) {
+
+      final slidableItem = slidableItems[index];
+      return Slidable(
+        key: Key(slidableItem.title),
+        actionPane: slidableItem.actionPane,
+        actionExtentRatio: 0.25,
+        child: Container(
+          color: Colors.white,
+          child: ListTile(
+            title: Text(slidableItem.title,
+              style: TextStyle(color: Colors.redAccent),
+            ),
           ),
         ),
-      ),
-      secondaryActions: [
-        IconSlideAction(
-          caption: 'Delete',
-          color: Colors.red,
-          icon: Icons.delete,
-        )
-      ],
-      dismissal: SlidableDismissal(
-        child: SlidableDrawerDismissal(),
-        dismissThresholds: {SlideActionType.secondary: 0.3},
-        onDismissed: (type) {
-          setState(() {
-            showItemCount = slidableItems.length;
-          });
-        },
-      ),
-    );
+        secondaryActions: [
+          IconSlideAction(
+            caption: 'Delete',
+            color: Colors.red,
+            icon: Icons.delete,
+          )
+        ],
+        dismissal: SlidableDismissal(
+          child: SlidableDrawerDismissal(),
+          dismissThresholds: {SlideActionType.secondary: 0.3},
+          onDismissed: (type) {
+            setState(() {
+              slidableItems.removeLast();
+            });
+          },
+        ),
+      );
+    }
 
     return ListView.builder(
-      itemCount: showItemCount,
+      itemCount: slidableItems.length,
       itemBuilder: (ctx, idx) {
-        if (idx == slidableItems.length) {
-          return dismissalItem;
+        if (slidableItems[idx].canDelete) {
+          return _createSlidableDismissalListTile(idx);
         } else {
           return _createSlidableListTile(idx);
         }

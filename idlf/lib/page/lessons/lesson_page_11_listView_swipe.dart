@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 enum SliableType{
-  Archive,
-  Share,
-  More,
-  Delete,
+  archive,
+  share,
+  more,
+  delete,
 }
 
 class SliableItem{
@@ -17,7 +17,12 @@ class SliableItem{
   SliableItem(this.title, this.subTitle, this.actionPane);
 }
 
-class LessonPageListViewSwipe extends StatelessWidget {
+class LessonPageListViewSwipe extends StatefulWidget {
+  @override
+  _LessonPageListViewSwipeState createState() => _LessonPageListViewSwipeState();
+}
+
+class _LessonPageListViewSwipeState extends State<LessonPageListViewSwipe> {
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +38,12 @@ class LessonPageListViewSwipe extends StatelessWidget {
           SlidableDrawerActionPane()),
     ];
 
+    int showItemCount = slidableItems.length + 1;
+
     void _showSnackBar(SliableType actionType, int index) {
-      print("${actionType.toString()} & $index");
+      final tapInfo = "$index is ${actionType.toString()}";
+      print(tapInfo);
+      Scaffold.of(context).showSnackBar(SnackBar(content: Text(tapInfo),));
     }
 
     Widget _createSlidableListTile(int index) {
@@ -42,41 +51,40 @@ class LessonPageListViewSwipe extends StatelessWidget {
       //都用SlideAction
       final leftActionMenu = [
         SlideAction(
-          child: FlutterLogo(colors: Colors.black12),
-          color: Colors.blue,
-          onTap: () => _showSnackBar(SliableType.Archive, index),
+          child: FlutterLogo(),
+          color: Colors.yellow,
+          onTap: () => _showSnackBar(SliableType.archive, index),
         ),
         SlideAction(
           child: Text("tap me"),
-          color: Colors.indigo,
-          onTap: () => _showSnackBar(SliableType.Share, index),
+          color: Colors.greenAccent,
+          onTap: () => _showSnackBar(SliableType.share, index),
         )
       ];
 
       //都用IconSlideAction
       final rightActionMenu = [
-        //有字
+        //無字
         IconSlideAction(
           color: Colors.black45,
           icon: Icons.more_horiz,
-          onTap: () => _showSnackBar(SliableType.More, index),
+          onTap: () => _showSnackBar(SliableType.more, index),
         ),
-        //沒字
+        //有字
         IconSlideAction(
           caption: 'Delete',
           color: Colors.red,
           icon: Icons.delete,
-          onTap: () => _showSnackBar(SliableType.Delete, index),
+          onTap: () => _showSnackBar(SliableType.delete, index),
         )
       ];
 
       final slidableItem = slidableItems[index];
-
       return Slidable(
         actions: leftActionMenu,
         secondaryActions: rightActionMenu,
         actionPane: slidableItem.actionPane,
-        actionExtentRatio: (index + 1) * 0.25,
+        actionExtentRatio: 0.25,
         child: Container(
           color: Colors.white,
           child: ListTile(
@@ -86,13 +94,53 @@ class LessonPageListViewSwipe extends StatelessWidget {
             leading: CircleAvatar(
               child: Text('$index'),
               foregroundColor: Colors.white,
-              backgroundColor: Colors.indigoAccent,
+              backgroundColor: Colors.orange,
             ),
           ),
         ),
       );
     }
 
-    return ListView.builder(itemBuilder: null);
+    final dismissalKey = "送我一程吧~~~~";
+    final dismissalItem = Slidable(
+      key: Key(dismissalKey),
+      actionPane: SlidableStrechActionPane(),
+      actionExtentRatio: 0.25,
+      child: Container(
+        color: Colors.white,
+        child: ListTile(
+          title: Text(dismissalKey,
+            style: TextStyle(color: Colors.redAccent),
+          ),
+        ),
+      ),
+      secondaryActions: [
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+        )
+      ],
+      dismissal: SlidableDismissal(
+        child: SlidableDrawerDismissal(),
+        dismissThresholds: {SlideActionType.secondary: 0.3},
+        onDismissed: (type) {
+          setState(() {
+            showItemCount = slidableItems.length;
+          });
+        },
+      ),
+    );
+
+    return ListView.builder(
+      itemCount: showItemCount,
+      itemBuilder: (ctx, idx) {
+        if (idx == slidableItems.length) {
+          return dismissalItem;
+        } else {
+          return _createSlidableListTile(idx);
+        }
+      }
+    );
   }
 }

@@ -34,7 +34,7 @@ class LessonListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("I。D。L。F。"),
+        title: Text("I。D。L。F"),
       ),
       body: ListView.builder(
         itemExtent: 50, //高度

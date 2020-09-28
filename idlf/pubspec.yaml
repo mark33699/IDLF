@@ -35,6 +35,8 @@ dependencies:
   dio: 3.0.10
   sticky_headers: ^0.1.8
   image_picker: ^0.6.7+11
+  icofont_flutter: ^1.3.0
+  material_design_icons_flutter: ^4.0.5655
 
 dev_dependencies:
   flutter_test:

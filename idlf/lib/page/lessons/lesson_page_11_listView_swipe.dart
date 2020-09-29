@@ -56,7 +56,7 @@ class _LessonPageListViewSwipeState extends State<LessonPageListViewSwipe> {
           onTap: () => _showSnackBar(SliableType.archive, index),
         ),
         SlideAction(
-          child: Text("tap me"),
+          child: Text("tap me", textAlign: TextAlign.center),
           color: Colors.greenAccent,
           onTap: () => _showSnackBar(SliableType.share, index),
         )
@@ -84,7 +84,7 @@ class _LessonPageListViewSwipeState extends State<LessonPageListViewSwipe> {
         actions: leftActionMenu,
         secondaryActions: rightActionMenu,
         actionPane: slidableItem.actionPane,
-        actionExtentRatio: 0.25,
+        actionExtentRatio: 0.1 * (index + 1),
         child: Container(
           color: Colors.white,
           child: ListTile(

@@ -6,19 +6,32 @@ class LessonPageCustomScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final space = 10.0;
     final tintColor = Colors.pinkAccent.withOpacity(0.5);
+    final horizontalKey = new GlobalKey();
+
+    void scrollToTop() {
+      Scrollable.ensureVisible(horizontalKey.currentContext);
+    }
 
     Widget _createCell(String title) {
-      return Container(
+      return Card(
         color: tintColor,
-        child: Center(
-          child: Text(title, style: TextStyle(
-            color: Colors.white,
-            fontSize: 40,
-            fontWeight: FontWeight.w500
-          )),
-        ),
+        child: InkWell(
+          child: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.all(space),
+            child: Text(title, textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.w500
+              )
+            )
+          ),
+          onTap: title.startsWith("horizontal") ? scrollToTop : null,
+        )
       );
     }
 
@@ -82,10 +95,10 @@ class LessonPageCustomScrollView extends StatelessWidget {
 
           //上
           SliverPadding(
-            padding: EdgeInsets.all(space),
+            padding: EdgeInsets.only(top: space, left: space, right: space),
             sliver: SliverGrid(
               delegate: SliverChildBuilderDelegate((ctx, idx){
-                return _createCell("Grid $idx");
+                return _createCell("Grid\n$idx");
               }, childCount: 10),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -98,17 +111,24 @@ class LessonPageCustomScrollView extends StatelessWidget {
 
           //中
           SliverFixedExtentList(
-            itemExtent: 50,
+            key: horizontalKey,
+            itemExtent: 100,
             delegate: SliverChildBuilderDelegate ((ctx, idx) {
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
                 itemBuilder: (ctx, idx) {
-                    return _createCell("滾吧");
+                  return _createCell("horizontal\n$idx");
               });
             }, childCount: 1 )
           ),
 
+          //下
+          SliverList(
+            delegate: SliverChildBuilderDelegate ((ctx, idx) {
+              return _createCell("list $idx");
+            }, childCount: 10 )
+          )
         ],
       ),
     );

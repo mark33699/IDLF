@@ -99,8 +99,13 @@ class LessonPageCustomScrollView extends StatelessWidget {
           //中
           SliverFixedExtentList(
             itemExtent: 50,
-            delegate: SliverChildBuilderDelegate ( (ctx, idx) {
-              return _createCell("List $idx");
+            delegate: SliverChildBuilderDelegate ((ctx, idx) {
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (ctx, idx) {
+                    return _createCell("滾吧");
+              });
             }, childCount: 1 )
           ),
 

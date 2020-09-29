@@ -3,6 +3,8 @@ import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
 import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
 import 'package:idlf/page/lessons/lesson_page_13_customScrollView.dart';
+import 'lesson_page_14_bottomNavigation_tabBar.dart';
+import 'lesson_page_15_api_get.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -16,7 +18,7 @@ import 'lesson_page_10.dart';
 
 class LessonListPage extends StatelessWidget {
 
-  final List<Lesson> lessons = [
+  List<Lesson> lessons = [
     Lesson(Icon(Icons.mail_outline), 1, "跳轉", LessonPageRouting(showWording: "Hello World")),
     Lesson(Icon(Icons.inbox), 2, "佈局", LessonPageLayout()),
     Lesson(Icon(Icons.not_listed_location), 3, "容器", LessonPageChild()),
@@ -30,16 +32,21 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.playlist_add_check), 11, "裁判～可以讓人列完又列這樣的嗎？", LessonPageListViewCheckBoxAndSwipe()),
     Lesson(Icon(Icons.grid_on), 12, "網格", LessonPageGridView()),
     Lesson(Icon(Icons.dashboard), 13, "特製滾動", LessonPageCustomScrollView()),
+    Lesson(Icon(Icons.table_chart), 14, "底部導航與頁籤", LessonPageBottomNavigationAndTabBar()),
+    Lesson(Icon(Icons.call_received), 15, "API GET", LessonPageApiGet()),
+    Lesson(Icon(Icons.call_made), 16, "API POST", LessonPageApiGet()),
   ];
 
   @override
   Widget build(BuildContext context) {
+
+    lessons = lessons.reversed.toList();
+
     return Scaffold(
       appBar: AppBar(
         title: Text("I。D。L。F"),
       ),
       body: ListView.builder(
-        reverse: true,
         itemExtent: 50, //高度
         itemCount: lessons.length,
         itemBuilder: (context, index) {

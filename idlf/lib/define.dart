@@ -48,4 +48,4 @@ List<Color> rainbowBlackWhiteColors() {
   return colors;
 }
 
-Color randomColor() => rainbowBlackWhiteColors()[Random().nextInt(rainbowBlackWhiteColors().length)];
+Color random9Color() => rainbowBlackWhiteColors()[Random().nextInt(rainbowBlackWhiteColors().length)];

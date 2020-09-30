@@ -10,13 +10,17 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
   int currentIndex = 1;
   final pages = [
     CenterMessagePage("首頁", Colors.lightGreenAccent),
-    LessonPage9TabBar(),
-    CenterMessagePage("第三頁", Colors.lightBlueAccent)
+    LessonPageTabBar(),
+    CenterMessagePage("第三頁", Colors.lightBlueAccent),
+    CenterMessagePage("第四頁", Colors.grey),
+    CenterMessagePage("第五頁", Colors.grey),
   ];
   final items = [
-    BottomNavigationBarItem(title: Text("首頁"), icon: Icon(Icons.home)),
-    BottomNavigationBarItem(title: Text("第二頁"), icon: Icon(Icons.star)),
-    BottomNavigationBarItem(title: Text("第三頁"), icon: Icon(Icons.account_box))
+    BottomNavigationBarItem(title: Text("首頁"), icon: Icon(Icons.home), backgroundColor: Colors.red),
+    BottomNavigationBarItem(title: Text("第二頁"), icon: Icon(Icons.star), backgroundColor: Colors.orange),
+    BottomNavigationBarItem(title: Text("第三頁"), icon: Icon(Icons.account_box), backgroundColor: Colors.yellowAccent),
+    BottomNavigationBarItem(title: Text("第四頁"), icon: Icon(Icons.local_airport), backgroundColor: Colors.blue),
+    BottomNavigationBarItem(title: Text("第五頁"), icon: Icon(Icons.local_airport), backgroundColor: Colors.purple),
   ];
 
   @override
@@ -27,9 +31,12 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
       ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
           items: items,
           currentIndex: currentIndex,
-          fixedColor: Colors.blue,
+          backgroundColor: Colors.pinkAccent,
+          fixedColor: Colors.green,
+          unselectedItemColor: Colors.deepPurpleAccent,
           onTap: (int index) {
             setState(() {
               currentIndex = index;
@@ -40,7 +47,7 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
 }
 
 
-class LessonPage9TabBar extends StatelessWidget {
+class LessonPageTabBar extends StatelessWidget {
 
   final pages = [
     CenterMessagePage("2.1頁", Colors.redAccent),

@@ -26,10 +26,10 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.warning), 5, "按鈕與提示", LessonPageButtonAndDialog()),
     Lesson(Icon(Icons.image), 6, "圖片", LessonPageImage()),
     Lesson(Icon(Icons.call_split), 7, "選擇器", LessonPageSelector()),
-    Lesson(Icon(Icons.message), 8, "列表", LessonPageListViewChildrenAndBuilder()),
-    Lesson(Icon(Icons.format_list_numbered), 9, "又是列表", LessonPageListViewHeaderAndRefresh()),
-    Lesson(Icon(Icons.format_list_bulleted), 10, "還是～列表", LessonPageListViewTextFieldAndExpansion()),
-    Lesson(Icon(Icons.playlist_add_check), 11, "裁判～可以讓人列完又列這樣的嗎？", LessonPageListViewCheckBoxAndSwipe()),
+    Lesson(Icon(Icons.message), 8, "建立列表", LessonPageListViewChildrenAndBuilder()),
+    Lesson(Icon(Icons.format_list_numbered), 9, "列表置頂與刷新", LessonPageListViewHeaderAndRefresh()),
+    Lesson(Icon(Icons.format_list_bulleted), 10, "列表輸入與開合", LessonPageListViewTextFieldAndExpansion()),
+    Lesson(Icon(Icons.playlist_add_check), 11, "列表多選與側滑", LessonPageListViewCheckBoxAndSwipe()),
     Lesson(Icon(Icons.grid_on), 12, "網格", LessonPageGridView()),
     Lesson(Icon(Icons.dashboard), 13, "特製滾動", LessonPageCustomScrollView()),
     Lesson(Icon(Icons.table_chart), 14, "底部導航與頁籤", LessonPageBottomNavigationAndTabBar()),
@@ -57,7 +57,12 @@ class LessonListPage extends StatelessWidget {
               padding: EdgeInsets.only(left: 16),
               child: lesson.icon,
             ),
-            title: Text("Lesson(${lesson.lessonNumber}) ${lesson.lessonName}"),
+            title: Text("Lesson(${lesson.lessonNumber})"),
+            trailing: Container(
+//              padding: EdgeInsets.only(right: 16),
+              width: 180,
+              child: Text("${lesson.lessonName}"),
+            ),
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => lesson.page));

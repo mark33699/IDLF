@@ -40,68 +40,74 @@ class APIManager {
     }
   }
 
-  void login(
-      String email,
-      String password,
-      void Function() success,
-      void Function(String) fail) async {
-    var urlString = "$domain/login";
+  void loginHttpClientWWW(void Function() success, void Function() fail) async {
 
-    //1.原生 => 400
-    /*
-      HttpClient()
+    var urlString = "https://reqres.in/api/login";
+    HttpClient()
         .postUrl(Uri.parse(urlString))
         .then((HttpClientRequest request) {
-          request.headers.contentType = ContentType("application", "x-www-form-urlencoded");
-          request.write("email=$email");
-          request.write("password=$password");
-          return request.close();
+      request.headers.contentType = ContentType("application", "x-www-form-urlencoded");
+      request.write("email=eve.holt@reqres.in");
+      request.write("password=cityslicka");
+      return request.close();
 
-        }).then((HttpClientResponse response) {
-          if (response.statusCode == 200) {
-            response.transform(utf8.decoder).join().then((String string) {
-              print(string);
-              success();
-            });
-          } else {
-            fail("${response.statusCode}");
-          }
-        });
-     */
-
-    //2.原生庫 => 400
-    /*
-      Map<String, String> headersMap = new Map();
-      headersMap["content-type"] = "application/x-www-form-urlencoded";
-
-      Map<String, String> bodyParams = new Map();
-      bodyParams["email"] = email;
-      bodyParams["password"] = password;
-      http.Client()
-          .post(urlString, headers: headersMap, body: bodyParams, encoding: Utf8Codec())
-          .then((http.Response response) {
-        if (response.statusCode == 200) {
+    }).then((HttpClientResponse response) {
+      if (response.statusCode == 200) {
+        response.transform(utf8.decoder).join().then((String string) {
+          print("HttpClient Success：$string");
           success();
-        } else {
-          fail("${response.statusCode}");
-        }
-      }).catchError((error) {
-        fail(error.toString());
-      });
-     */
+        });
+      } else {
+        print("HttpClient Fail：${response.statusCode}");
+        fail();
+      }
+    });
+  }
 
-    //3.Dio.........還是零分
+  void loginHttpWWW(void Function() success, void Function() fail) async {
+
+    var urlString = "https://reqres.in/api/login";
+    Map<String, String> headersMap = new Map();
+    headersMap["content-type"] = "application/x-www-form-urlencoded";
+
+    Map<String, String> bodyParams = new Map();
+    bodyParams["email"] = "eve.holt@reqres.in";
+    bodyParams["password"] = "cityslicka";
+    http.Client()
+        .post(urlString, headers: headersMap, body: bodyParams, encoding: Utf8Codec())
+        .then((http.Response response) {
+      if (response.statusCode == 200) {
+        print("http Success：${response.body}");
+        success();
+      } else {
+        print("http Fail：${response.statusCode}");
+        fail();
+      }
+    }).catchError((error) {
+      print("http Fail：${error.toString()}");
+      fail();
+    });
+  }
+
+  void loginDioWWW(void Function() success, void Function() fail) async {
+
+    var urlString = "https://reqres.in/api/login";
     try {
       Response response = await Dio()
         .post(urlString,
-          data: {"email":email, "password":password},
+          data: {"email":"eve.holt@reqres.in", "password":"cityslicka"},
           options: Options(contentType:Headers.formUrlEncodedContentType));
-      print(response.data);
+      print("Dio Success：${response.data}");
       success();
-    } catch (e) {
-      fail(e.toString());
+    } catch (error) {
+      print("Dio Fail：${error.toString()}");
+      fail();
     }
   }
+
+
+
+
 }
 
 class IOHttpUtils {

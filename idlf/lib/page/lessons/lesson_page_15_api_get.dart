@@ -10,10 +10,6 @@ class LessonPageApiGet extends StatefulWidget {
 class _LessonPageApiGetState extends State<LessonPageApiGet> {
 
   Users currentUsers;
-  String errorMessage = "";
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController pwdController = TextEditingController();
 
   @override
   void initState() {

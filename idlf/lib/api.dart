@@ -22,7 +22,8 @@ class APIManager {
     var urlString = "$domain/users?per_page=100";
 
     try {
-      var request = await HttpClient().getUrl(Uri.parse(urlString));
+      final httpClient = HttpClient();
+      var request = await httpClient.getUrl(Uri.parse(urlString));
       var response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
 
@@ -30,6 +31,8 @@ class APIManager {
         var jsonMap = jsonDecode(jsonString);
         var users = Users.fromJson(jsonMap);
         success(users);
+
+        httpClient.close();
 
       } else {
         print("Http NG");
@@ -39,6 +42,8 @@ class APIManager {
       print("Http Fail is $exp");
     }
   }
+
+  //以下POST分隔線=================
 
   void loginHttpClientWWW(void Function() success, void Function() fail) async {
 
@@ -54,11 +59,37 @@ class APIManager {
     }).then((HttpClientResponse response) {
       if (response.statusCode == 200) {
         response.transform(utf8.decoder).join().then((String string) {
-          print("HttpClient Success：$string");
+          print("HttpClientWWW Success：$string");
           success();
         });
       } else {
-        print("HttpClient Fail：${response.statusCode}");
+        print("HttpClientWWW Fail：${response.statusCode}");
+        fail();
+      }
+    });
+  }
+
+  void loginHttpClientJson(void Function() success, void Function() fail) async {
+
+    var urlString = "http://httpbin.org/delay/1";
+
+    HttpClient()
+        .postUrl(Uri.parse(urlString))
+        .then((HttpClientRequest request) {
+      request.headers.contentType = ContentType("application", "json");
+
+      Map<String,String> p = {"UserName":"eve.holt@reqres.in", "Password":"cityslicka"};
+      request.add(utf8.encode(json.encode(p)));
+      return request.close();
+
+    }).then((HttpClientResponse response) {
+      if (response.statusCode == 200) {
+        response.transform(utf8.decoder).join().then((String string) {
+          print("HttpClientJson Success：${string}");
+          success();
+        });
+      } else {
+        print("HttpClientJson Fail：${response.statusCode}");
         fail();
       }
     });

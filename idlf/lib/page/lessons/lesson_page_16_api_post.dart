@@ -13,7 +13,7 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
   final long = 66.0;
   final List<bool> formDataResults = [null, null, null];
   final List<bool> jsonResults = [null, null, null];
-  final List<bool> wwwResult = [null, false, true];
+  final List<bool> wwwResults = [null, null, null];
   
   Widget _createContainer(String text) {
     return Container(
@@ -25,11 +25,11 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
 
   Widget _createResultWidget(bool result) {
 
-    //⭕️❌
+    //⭕️❌🆗🆖
     if (result == true) {
-      return _createContainer("🆗");
+      return _createContainer("⭕️");
     } else if (result == false) {
-      return _createContainer("🆖");
+      return _createContainer("❌");
     } else {
       return Container(
           height: long,
@@ -60,15 +60,6 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
 
         TableRow(
             children: [
-              _createContainer("form-data"),
-              _createResultWidget(formDataResults[0]),
-              _createResultWidget(formDataResults[1]),
-              _createResultWidget(formDataResults[2]),
-            ]
-        ),
-
-        TableRow(
-            children: [
               _createContainer("json"),
               _createResultWidget(jsonResults[0]),
               _createResultWidget(jsonResults[1]),
@@ -78,10 +69,19 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
 
         TableRow(
             children: [
+              _createContainer("form-data"),
+              _createResultWidget(formDataResults[0]),
+              _createResultWidget(formDataResults[1]),
+              _createResultWidget(formDataResults[2]),
+            ]
+        ),
+
+        TableRow(
+            children: [
               _createContainer("x-www-form-urlencoded"),
-              _createResultWidget(wwwResult[0]),
-              _createResultWidget(wwwResult[1]),
-              _createResultWidget(wwwResult[2]),
+              _createResultWidget(wwwResults[0]),
+              _createResultWidget(wwwResults[1]),
+              _createResultWidget(wwwResults[2]),
             ]
         )
       ]
@@ -93,21 +93,27 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
     super.initState();
 
     APIManager().loginHttpClientWWW(() {
-      setState(() { wwwResult[0] = true; });
+      setState(() { wwwResults[0] = true; });
     }, () {
-      setState(() { wwwResult[0] = false; });
+      setState(() { wwwResults[0] = false; });
     });
 
     APIManager().loginHttpWWW(() {
-      setState(() { wwwResult[1] = true; });
+      setState(() { wwwResults[1] = true; });
     }, () {
-      setState(() { wwwResult[1] = false; });
+      setState(() { wwwResults[1] = false; });
     });
 
     APIManager().loginDioWWW(() {
-      setState(() { wwwResult[2] = true; });
+      setState(() { wwwResults[2] = true; });
     }, () {
-      setState(() { wwwResult[2] = false; });
+      setState(() { wwwResults[2] = false; });
+    });
+
+    APIManager().loginHttpClientJson(() {
+      setState(() { jsonResults[0] = true; });
+    }, () {
+      setState(() { jsonResults[0] = false; });
     });
 
   }

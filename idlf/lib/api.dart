@@ -43,7 +43,7 @@ class APIManager {
     }
   }
 
-  //以下POST分隔線=================
+  //以下POST HttpClient分隔線=================
 
   void loginHttpClientWWW(void Function() success, void Function() fail) async {
 
@@ -72,7 +72,6 @@ class APIManager {
   void loginHttpClientJson(void Function() success, void Function() fail) async {
 
     var urlString = "http://httpbin.org/delay/1";
-
     HttpClient()
         .postUrl(Uri.parse(urlString))
         .then((HttpClientRequest request) {
@@ -85,7 +84,8 @@ class APIManager {
     }).then((HttpClientResponse response) {
       if (response.statusCode == 200) {
         response.transform(utf8.decoder).join().then((String string) {
-          print("HttpClientJson Success：${string}");
+//          print("HttpClientJson Success：$string");
+          print("HttpClientJson Success");
           success();
         });
       } else {
@@ -94,6 +94,8 @@ class APIManager {
       }
     });
   }
+
+  //以下POST http分隔線=================
 
   void loginHttpWWW(void Function() success, void Function() fail) async {
 
@@ -108,17 +110,44 @@ class APIManager {
         .post(urlString, headers: headersMap, body: bodyParams, encoding: Utf8Codec())
         .then((http.Response response) {
       if (response.statusCode == 200) {
-        print("http Success：${response.body}");
+        print("httpWWW Success：${response.body}");
         success();
       } else {
-        print("http Fail：${response.statusCode}");
+        print("httpWWW Fail：${response.statusCode}");
         fail();
       }
     }).catchError((error) {
-      print("http Fail：${error.toString()}");
+      print("httpWWW Fail：${error.toString()}");
       fail();
     });
   }
+
+  void loginHttpJson(void Function() success, void Function() fail) async {
+
+    var urlString = "http://httpbin.org/delay/1";
+    Map<String, String> headersMap = new Map();
+    headersMap["content-type"] = ContentType.json.toString();
+
+    Map<String, String> bodyParams = new Map();
+    bodyParams["email"] = "eve.holt@reqres.in";
+    bodyParams["password"] = "cityslicka";
+    http.Client()
+        .post(urlString, headers: headersMap, body: jsonEncode(bodyParams), encoding: Utf8Codec())
+        .then((http.Response response) {
+      if (response.statusCode == 200) {
+        print("httpJson Success：${response.body}");
+        success();
+      } else {
+        print("httpJson Fail：${response.statusCode}");
+        fail();
+      }
+    }).catchError((error) {
+      print("httpJson Fail：${error.toString()}");
+      fail();
+    });
+  }
+
+  //以下POST Dio分隔線=================
 
   void loginDioWWW(void Function() success, void Function() fail) async {
 
@@ -128,10 +157,10 @@ class APIManager {
         .post(urlString,
           data: {"email":"eve.holt@reqres.in", "password":"cityslicka"},
           options: Options(contentType:Headers.formUrlEncodedContentType));
-      print("Dio Success：${response.data}");
+      print("DioWWW Success：${response.data}");
       success();
     } catch (error) {
-      print("Dio Fail：${error.toString()}");
+      print("DioWWW Fail：${error.toString()}");
       fail();
     }
   }

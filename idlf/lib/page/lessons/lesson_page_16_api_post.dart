@@ -92,6 +92,7 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
   void initState() {
     super.initState();
 
+    //=============www
     APIManager().loginHttpClientWWW(() {
       setState(() { wwwResults[0] = true; });
     }, () {
@@ -110,10 +111,17 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
       setState(() { wwwResults[2] = false; });
     });
 
+    //=============json
     APIManager().loginHttpClientJson(() {
       setState(() { jsonResults[0] = true; });
     }, () {
       setState(() { jsonResults[0] = false; });
+    });
+
+    APIManager().loginHttpJson(() {
+      setState(() { jsonResults[1] = true; });
+    }, () {
+      setState(() { jsonResults[1] = false; });
     });
 
   }

@@ -6,12 +6,6 @@ import 'package:dio/dio.dart';
 
 import 'package:idlf/model/User.dart';
 
-//flutter 处理HTTP请求的三种基本方案(非常完整)
-//https://www.toutiao.com/i6787626378570236428/
-
-//1. body 有三种传输内容类型 Content-type：application/x-www-form-urlencoded、application/json、multipart/form-data
-//2. io.dart 里的 HttpClient 实现的 HTTP 网络请求主要是实现基本的网络请求，还不支持POST请求的multipart/form-data传输。(x-www-form-urlencoded也搞不定啊....)
-
 typedef UsersCallback = void Function(Users);
 
 class APIManager {
@@ -52,8 +46,9 @@ class APIManager {
         .postUrl(Uri.parse(urlString))
         .then((HttpClientRequest request) {
       request.headers.contentType = ContentType("application", "x-www-form-urlencoded");
-      request.write("email=eve.holt@reqres.in");
-      request.write("password=cityslicka");
+      request.write("{\"email\":\"eve.holt@reqres.in\",\"password\":\"cityslicka\"}");
+//      request.write("email=eve.holt@reqres.in");
+//      request.write("password=cityslicka");
       return request.close();
 
     }).then((HttpClientResponse response) {
@@ -84,8 +79,7 @@ class APIManager {
     }).then((HttpClientResponse response) {
       if (response.statusCode == 200) {
         response.transform(utf8.decoder).join().then((String string) {
-//          print("HttpClientJson Success：$string");
-          print("HttpClientJson Success");
+          print("HttpClientJson Success：$string");
           success();
         });
       } else {
@@ -93,6 +87,10 @@ class APIManager {
         fail();
       }
     });
+  }
+
+  void loginHttpClientForm(void Function() success, void Function() fail) async {
+
   }
 
   //以下POST http分隔線=================
@@ -147,6 +145,28 @@ class APIManager {
     });
   }
 
+  void loginHttpForm(void Function() success, void Function() fail) async {
+
+    var urlString = "https://postman-echo.com/post";
+    var client = new http.MultipartRequest("post", Uri.parse(urlString));
+    client.fields["email"] = "eve.holt@reqres.in";
+    client.fields["password"] = "cityslicka";
+    client.send().then((http.StreamedResponse response) {
+      if (response.statusCode == 200) {
+        response.stream.transform(utf8.decoder).join().then((String string) {
+          print("httpForm Success：$string");
+          success();
+        });
+      } else {
+        print("httpForm Fail：${response.statusCode}");
+        fail();
+      }
+    }).catchError((error) {
+      print("httpForm Fail：${error.toString()}");
+      fail();
+    });
+  }
+
   //以下POST Dio分隔線=================
 
   void loginDioWWW(void Function() success, void Function() fail) async {
@@ -165,82 +185,36 @@ class APIManager {
     }
   }
 
+  void loginDioJson(void Function() success, void Function() fail) async {
 
-
-
-}
-
-class IOHttpUtils {
-
-  HttpClient _httpClient = HttpClient();
-
-  getHttpClient() async {
-    _httpClient
-        .get('https://api.github.com/', 80, '/users/zanderso')
-        .then((HttpClientRequest request) {
-          return request.close();
-        })
-        .then((HttpClientResponse response) {
-      if (response.statusCode == 200) {
-        response.transform(utf8.decoder).join().then((String string) {
-          print(string);
-        });
-      } else {
-        print("error");
-      }
-    });
+    var urlString = "http://httpbin.org/delay/1";
+    try {
+      Response response = await Dio()
+          .post(urlString,
+          data: {"email":"eve.holt@reqres.in", "password":"cityslicka"},
+          options: Options(contentType:Headers.jsonContentType));
+      print("DioJson Success：${response.data}");
+      success();
+    } catch (error) {
+      print("DioJson Fail：${error.toString()}");
+      fail();
+    }
   }
 
-  getUrlHttpClient() async {
-    var url = "https://api.github.com/users/zanderso";
-    _httpClient
-        .getUrl(Uri.parse(url))
-        .then((HttpClientRequest request) {
-      return request.close();
-    }).then((HttpClientResponse response) {
-      if (response.statusCode == 200) {
-      response.transform(utf8.decoder).join().then((String string) {
-        print(string);
-      });
-    } else {
-      print("error");
-    } });
+  void loginDioForm(void Function() success, void Function() fail) async {
+
+    var urlString = "https://postman-echo.com/post";
+    try {
+      Response response = await Dio()
+          .post(urlString,
+          data: FormData.fromMap({"email":"eve.holt@reqres.in", "password":"cityslicka"}));
+      print("DioForm Success：${response.data}");
+      success();
+    } catch (error) {
+      print("DioForm Fail：${error.toString()}");
+      fail();
+    }
   }
 
-  postHttpClient() async {
-    _httpClient
-      .post('https://api.github.com/', 80, '/users/zanderso')
-      .then((HttpClientRequest request) {
-        request.headers.contentType = ContentType("application", "json");
-        request.write("{\"name\":\"value1\",\"pwd\":\"value2\"}");
-        return request.close();
-      }).then((HttpClientResponse response) {
-        if (response.statusCode == 200) {
-          response.transform(utf8.decoder).join().then((String string) {
-            print(string);
-          });
-        } else {
-          print("error");
-        }
-      }
-    );
-  }
 
-  postUrlHttpClient() async {
-    var url = "https://api.github.com/users/zanderso";
-    _httpClient
-      .postUrl(Uri.parse(url))
-      .then((HttpClientRequest request) {
-        request.headers.contentType = ContentType("application", "x-www-form-urlencoded");
-        request.write("page=2");
-        return request.close();
-    }).then((HttpClientResponse response) {
-      if (response.statusCode == 200) {
-      response.transform(utf8.decoder).join().then((String string) {
-        print(string);
-      });
-    } else {
-      print("error");
-    } });
-  }
 }

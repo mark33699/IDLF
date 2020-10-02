@@ -69,19 +69,19 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
 
         TableRow(
             children: [
-              _createContainer("form-data"),
-              _createResultWidget(formDataResults[0]),
-              _createResultWidget(formDataResults[1]),
-              _createResultWidget(formDataResults[2]),
+              _createContainer("x-www-form-urlencoded"),
+              _createResultWidget(wwwResults[0]),
+              _createResultWidget(wwwResults[1]),
+              _createResultWidget(wwwResults[2]),
             ]
         ),
 
         TableRow(
             children: [
-              _createContainer("x-www-form-urlencoded"),
-              _createResultWidget(wwwResults[0]),
-              _createResultWidget(wwwResults[1]),
-              _createResultWidget(wwwResults[2]),
+              _createContainer("form-data"),
+              _createResultWidget(formDataResults[0]),
+              _createResultWidget(formDataResults[1]),
+              _createResultWidget(formDataResults[2]),
             ]
         )
       ]
@@ -122,6 +122,31 @@ class _LessonPageApiPostState extends State<LessonPageApiPost> {
       setState(() { jsonResults[1] = true; });
     }, () {
       setState(() { jsonResults[1] = false; });
+    });
+
+    APIManager().loginDioJson(() {
+      setState(() { jsonResults[2] = true; });
+    }, () {
+      setState(() { jsonResults[2] = false; });
+    });
+
+    //=============Form
+    APIManager().loginHttpClientForm(() {
+      setState(() { formDataResults[0] = true; });
+    }, () {
+      setState(() { formDataResults[0] = false; });
+    });
+
+    APIManager().loginHttpForm(() {
+      setState(() { formDataResults[1] = true; });
+    }, () {
+      setState(() { formDataResults[1] = false; });
+    });
+
+    APIManager().loginDioForm(() {
+      setState(() { formDataResults[2] = true; });
+    }, () {
+      setState(() { formDataResults[2] = false; });
     });
 
   }

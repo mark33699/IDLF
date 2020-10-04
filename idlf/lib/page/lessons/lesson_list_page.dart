@@ -3,6 +3,7 @@ import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
 import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
 import 'package:idlf/page/lessons/lesson_page_13_customScrollView.dart';
+import 'package:idlf/page/lessons/lesson_page_17_lifeCycle.dart';
 import 'lesson_page_14_bottomNavigation_tabBar.dart';
 import 'lesson_page_15_api_get.dart';
 import 'lesson_page_16_api_post.dart';
@@ -36,6 +37,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.table_chart), 14, "底部導航與頁籤", LessonPageBottomNavigationAndTabBar()),
     Lesson(Icon(Icons.call_received), 15, "API GET", LessonPageApiGet()),
     Lesson(Icon(Icons.call_made), 16, "API POST", LessonPageApiPost()),
+    Lesson(Icon(Icons.accessibility), 17, "生命週期", LessonPageLifeCycle()),
   ];
 
   @override

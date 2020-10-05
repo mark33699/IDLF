@@ -14,33 +14,54 @@ class _LessonPageLifeCycleState extends State<LessonPageLifeCycle> with WidgetsB
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    print("A1. widget initState");
+//    print("A1. widget initState");
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print("A2. widget didChangeDependencies");
+//    print("A2. widget didChangeDependencies");
   }
 
   @override
+  void didUpdateWidget(LessonPageLifeCycle oldWidget) {
+    super.didUpdateWidget(oldWidget);
+//    print("A3. widget didUpdateWidget");
+  }
+
+  final TestUpdateWidget test1 = TestUpdateWidget();
+  TestUpdateWidget test2 = TestUpdateWidget();
+//  TestUpdateWidget test1 = TestUpdateWidget(key: GlobalKey());
+//  TestUpdateWidget test2 = TestUpdateWidget(key: GlobalKey());
+
+  @override
   Widget build(BuildContext context) {
-    print("A3. widget build");
+    print("A4. widget build");
     return Scaffold(
         appBar: AppBar(
           title: Text("第十七堂課"),
         ),
-        body: Center(
-            child: IconButton(
-                icon: Icon(gone ? Icons.arrow_back : Icons.arrow_forward),
-                onPressed: (){
-                  setState(() {
-                    gone = true;
-                  });
+        body: Column(
+          children: [
+            Center(
+                child: IconButton(
+                    icon: Icon(gone ? Icons.arrow_back : Icons.arrow_forward),
+                    onPressed: (){
 
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LessonPageX()));
-                })
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => LessonPageX()));
+
+                      setState(() {
+//                        gone = false;
+                        gone = true;
+                      });
+                    })
+            ),
+            gone ? test1 : test2
+//            gone ? TestUpdateWidget() : TestUpdateWidget()
+//            test1
+//            TestUpdateWidget()
+          ],
         )
     );
   }
@@ -48,26 +69,20 @@ class _LessonPageLifeCycleState extends State<LessonPageLifeCycle> with WidgetsB
   @override
   void reassemble() {
     super.reassemble();
-    print("D1. widget reassemble");
+//    print("D1. widget reassemble");
   }
 
   @override
   void deactivate() {
     super.deactivate();
-    print("Z1. widget deactivate");
+//    print("Z1. widget deactivate");
   }
 
   @override
   void dispose() {
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    print("Z2. widget dispose");
-  }
-
-  @override
-  void didUpdateWidget(LessonPageLifeCycle oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    print("widget didUpdateWidget");
+//    print("Z2. widget dispose");
   }
 
   @override
@@ -84,6 +99,60 @@ class _LessonPageLifeCycleState extends State<LessonPageLifeCycle> with WidgetsB
       );
     }
   }
+}
+
+class TestUpdateWidget extends StatefulWidget {
+  const TestUpdateWidget({
+    Key key,
+  });
+
+  @override
+  _TestUpdateWidgetState createState() => _TestUpdateWidgetState();
+}
+
+class _TestUpdateWidgetState extends State<TestUpdateWidget> {
+
+  @override
+  void initState() {
+    super.initState();
+    print("pls init me~~~ ${context.widget.hashCode}");
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+//    print("pls change me~~~");
+  }
+
+  @override
+  void didUpdateWidget(covariant TestUpdateWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("pls update me~~~ ${oldWidget.hashCode}");
+  }
+
+  @override
+  void reassemble() {
+//    print("pls reassemble me~~~");
+    super.reassemble();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+//    print("pls deactivate me~~~");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+//    print("pls dispose me~~~");
+  }
+
 }
 
 class PasswordAlertDialog extends StatefulWidget {

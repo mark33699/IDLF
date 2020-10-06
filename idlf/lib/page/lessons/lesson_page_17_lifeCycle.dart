@@ -85,19 +85,76 @@ class _LessonPageLifeCycleState extends State<LessonPageLifeCycle> with WidgetsB
 //    print("Z2. widget dispose");
   }
 
+  bool isVerifying = false;
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
 
     print(state);
 
-    if (state == AppLifecycleState.resumed) {
-      showDialog(
+    if (state == AppLifecycleState.resumed && isVerifying == false) {
+
+      isVerifying = true;
+
+      isVerifying = await showDialog(
           builder: (context) => PasswordAlertDialog(),
           context: context,
           barrierDismissible: false
       );
     }
+  }
+}
+
+class PasswordAlertDialog extends StatefulWidget {
+  @override
+  _PasswordAlertDialogState createState() => _PasswordAlertDialogState();
+}
+
+class _PasswordAlertDialogState extends State<PasswordAlertDialog> {
+
+  String pwd = "";
+  bool isError = false;
+  TextEditingController _textEditingController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text("身份驗證"),
+      content: Row(
+        children: <Widget>[
+          Expanded(
+              child: TextField(
+                controller: _textEditingController,
+                autofocus: true,
+                decoration: InputDecoration(
+                    labelText: "請輸入密碼",
+                    errorText: isError ? "密碼錯誤" : null
+                ),
+                onChanged: (value) {
+                  pwd = value;
+                  setState(() {
+                    isError = false;
+                  });
+                },
+              )
+          )
+        ],
+      ),
+      actions: <Widget>[
+        IconButton(
+            icon: Icon(Icons.check),
+            onPressed: () {
+              if (pwd == "IDLF") {
+                Navigator.pop(context, false);
+              } else {
+                setState(() {
+                  _textEditingController.text = "";
+                  isError = true;
+                });
+              }
+            }),
+      ],
+    );
   }
 }
 
@@ -153,57 +210,4 @@ class _TestUpdateWidgetState extends State<TestUpdateWidget> {
 //    print("pls dispose me~~~");
   }
 
-}
-
-class PasswordAlertDialog extends StatefulWidget {
-  @override
-  _PasswordAlertDialogState createState() => _PasswordAlertDialogState();
-}
-
-class _PasswordAlertDialogState extends State<PasswordAlertDialog> {
-
-  String pwd = "";
-  bool isError = false;
-  TextEditingController _textEditingController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text("身份驗證"),
-      content: Row(
-        children: <Widget>[
-          Expanded(
-              child: TextField(
-                controller: _textEditingController,
-                autofocus: true,
-                decoration: InputDecoration(
-                    labelText: "請輸入密碼",
-                    errorText: isError ? "密碼錯誤" : null
-                ),
-                onChanged: (value) {
-                  pwd = value;
-                  setState(() {
-                    isError = false;
-                  });
-                },
-              )
-          )
-        ],
-      ),
-      actions: <Widget>[
-        IconButton(
-            icon: Icon(Icons.check),
-            onPressed: () {
-              if (pwd == "IDLF") {
-                Navigator.pop(context, true);
-              } else {
-                setState(() {
-                  _textEditingController.text = "";
-                  isError = true;
-                });
-              }
-            }),
-      ],
-    );
-  }
 }

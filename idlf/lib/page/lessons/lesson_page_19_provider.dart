@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LessonPageProvider extends StatefulWidget {
   @override
@@ -33,7 +34,7 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
   @override
   Widget build(BuildContext context) {
 
-    return CupertinoTabScaffold(
+    final tabScaffold = CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: items,
         onTap: (idx){
@@ -57,8 +58,19 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
         );
       },
     );
+
+    return MultiProvider(
+      child: tabScaffold,
+      providers: [
+        ChangeNotifierProvider.value(
+          value: LoginChangeNotifier()
+        )
+      ],
+    );
   }
 }
+
+//-
 
 class PushNextPage extends StatefulWidget {
 
@@ -75,6 +87,7 @@ class PushNextPage extends StatefulWidget {
 class _PushNextPageState extends State<PushNextPage> {
 
   bool isLogin = false;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -84,13 +97,24 @@ class _PushNextPageState extends State<PushNextPage> {
     final center = Container(
       color: widget.backgroundColor,
       alignment: Alignment.center,
-      child:
-      CupertinoButton(
+      child: CupertinoButton(
         child: Icon(Icons.next_week, size: 30),
         onPressed: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => nextPage)
-          );
+
+          if (Provider.of<LoginChangeNotifier>(context).isLogin) {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => nextPage)
+            );
+          } else {
+            //大概是center這個widget先存起來了所以找不到吧...
+            //Scaffold.of(context).showSnackBar( //Scaffold.of() called with a context that does not contain a Scaffold.
+            scaffoldKey.currentState.showSnackBar(
+              SnackBar(
+                content: Text("只有登入後才可進入下一頁喔 :)")
+              )
+            );
+          }
+
         },
       )
     );
@@ -114,9 +138,15 @@ class _PushNextPageState extends State<PushNextPage> {
             trailing: Switch(
               value: isLogin,
               onChanged: (isOn) {
+
+                //這句放在setState前面就會壞掉, 也太奇怪了吧....
+                //Provider.of<LoginChangeNotifier>(context, listen: false).loginToggle();
+
                 setState(() {
                   isLogin = isOn;
                 });
+
+                Provider.of<LoginChangeNotifier>(context, listen: false).loginToggle();
               },
             )
           )
@@ -125,6 +155,7 @@ class _PushNextPageState extends State<PushNextPage> {
     );
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: widget.showAppBar ? AppBar(title: Text("瑪提利尤")) : null,
       drawer: widget.showAppBar ? SizedBox(width: 200, child: drawer) : null,
       body: center,
@@ -132,15 +163,58 @@ class _PushNextPageState extends State<PushNextPage> {
   }
 }
 
+//-
+
 class PopPreviousPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //這樣寫是刷新整頁
+//    Provider.of<LoginChangeNotifier>(context).onLogout = (){
+//      Navigator.pop(context);
+//    };
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
-        child: Text("如果登出就會踢回前一頁"),
+        child: Consumer<LoginChangeNotifier>( //用Consumer只刷新這邊
+          child: Text("如果登出就會踢回前一頁"),
+          builder: (context, LoginChangeNotifier loginModel, widget){
+            loginModel.onLogout = () {
+              Navigator.pop(context);
+            };
+            //這邊return出去的才是最後顯示的widget
+            return Row(children: [
+              widget, //這個widget就是上面的child, child可以保持不重刷
+              Text(" :)")
+            ], mainAxisAlignment: MainAxisAlignment.center);
+          },
+        )
       )
     );
+  }
+}
+
+//-
+
+class LoginChangeNotifier with ChangeNotifier { //這是原生的interface
+
+  //dart可以getter/setter分開, 但  沒有private...
+  //https://stackoverflow.com/questions/55756256/private-setters-in-dart
+  //https://stackoverflow.com/questions/17488611/how-to-create-private-variables-in-dart/17488825
+  bool _isLogin = false;
+  bool get isLogin => _isLogin;
+  VoidCallback onLogin;
+  VoidCallback onLogout;
+
+  loginToggle() {
+    _isLogin = !_isLogin;
+    notifyListeners();
+    if (isLogin) {
+      onLogin();
+    } else {
+      onLogout();
+    }
   }
 }

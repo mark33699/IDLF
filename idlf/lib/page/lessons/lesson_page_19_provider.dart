@@ -13,10 +13,10 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
   bool isLogin = false;
   int currentIndex = 0;
 
-  final pages = [ //⭕️❌🆗🆖😌😔
-    PushNextPage("❌", Colors.orangeAccent, showAppBar: true),
-    PushNextPage("🆖", Colors.black12),
-    PushNextPage("😔", Colors.brown),
+  final pages = [
+    PushNextPage(Colors.orangeAccent, showAppBar: true),
+    PushNextPage(Colors.black12),
+    PushNextPage(Colors.brown),
   ];
 
   final items = [
@@ -51,9 +51,10 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
           builder: (BuildContext context) =>
             CupertinoPageScaffold(
               child: pages[idx],
-              navigationBar: idx != 1 ? null : CupertinoNavigationBar(
-                middle: Text("庫比蒂諾"),
-              ),
+                //加這個就會回不來...待研究
+//              navigationBar: idx != 1 ? null : CupertinoNavigationBar(
+//                middle: Text("庫比蒂諾"),
+//              ),
             ),
         );
       },
@@ -74,11 +75,10 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
 
 class PushNextPage extends StatefulWidget {
 
-  String centerMessage = "";
   Color backgroundColor = Colors.white;
   bool showAppBar;// = false; //這邊給預設值沒用...要寫在建構子
 
-  PushNextPage(this.centerMessage, this.backgroundColor, {this.showAppBar = false});
+  PushNextPage(this.backgroundColor, {this.showAppBar = false});
 
   @override
   _PushNextPageState createState() => _PushNextPageState();

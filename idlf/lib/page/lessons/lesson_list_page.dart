@@ -11,6 +11,7 @@ import 'lesson_page_16_api_post.dart';
 import 'lesson_page_18_inheritedWidget.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
+import 'lesson_page_20_notification.dart';
 import 'lesson_page_3.dart';
 import 'lesson_page_4_text_field.dart';
 import 'lesson_page_5_button_dialog.dart';
@@ -42,6 +43,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.accessibility), 17, "Life Cycle", LessonPageLifeCycle()),
     Lesson(Icon(Icons.trending_down), 18, "InheritedWidget", LessonPageInheritedWidget()),
     Lesson(Icon(Icons.wifi), 19, "Provider", LessonPageProvider()),
+    Lesson(Icon(Icons.trending_up), 20, "Notification", LessonPageNotification()),
   ];
 
   @override

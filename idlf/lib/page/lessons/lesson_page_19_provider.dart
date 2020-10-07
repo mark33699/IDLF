@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 
 import 'lesson_page_14_bottomNavigation_tabBar.dart';
@@ -14,9 +15,9 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
   int pageIdx = 0;
 
   final pages = [ //⭕️❌🆗🆖😌😔
-    CenterMessagePage("❌", Colors.yellowAccent),
-    CenterMessagePage("🆖", Colors.redAccent),
-    CenterMessagePage("😔", Colors.green),
+    PushNextWidget("❌", Colors.yellowAccent),
+    PushNextWidget("🆖", Colors.redAccent),
+    PushNextWidget("😔", Colors.green),
   ];
 
   @override
@@ -68,6 +69,48 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
           )
         )
       )
+    );
+  }
+}
+
+class PushNextWidget extends StatelessWidget {
+
+  String centerMessage = "";
+  Color backgroundColor = Colors.white;
+
+  PushNextWidget(this.centerMessage, this.backgroundColor);
+
+  @override
+  Widget build(BuildContext context) {
+
+    Widget nextPage = PopPreviousPage();
+
+    final center = Container(
+        color: backgroundColor,
+        alignment: Alignment.center,
+        child: IconButton(
+          icon: Icon(Icons.next_week),
+          onPressed: (){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => nextPage)
+            );
+          },
+        )
+    );
+
+    return center;
+  }
+}
+
+class PopPreviousPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("若登出就返回"),
+        ),
+        body: Container()
     );
   }
 }

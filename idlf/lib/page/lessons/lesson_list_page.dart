@@ -72,7 +72,8 @@ class LessonListPage extends StatelessWidget {
             ),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => lesson.page));
+                  MaterialPageRoute(builder: (context) => lesson.page)
+              );
             },
           );
         },

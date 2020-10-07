@@ -9,11 +9,11 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
 
   int currentIndex = 1;
   final pages = [
-    CenterMessagePage("首頁", Colors.lightGreenAccent),
+    CenterMessageWidget("首頁", Colors.lightGreenAccent),
     LessonPageTabBar(),
-    CenterMessagePage("第三頁", Colors.lightBlueAccent),
-    CenterMessagePage("第四頁", Colors.grey),
-    CenterMessagePage("第五頁", Colors.grey),
+    CenterMessageWidget("第三頁", Colors.lightBlueAccent),
+    CenterMessageWidget("第四頁", Colors.grey),
+    CenterMessageWidget("第五頁", Colors.grey),
   ];
   final items = [
     BottomNavigationBarItem(title: Text("首頁"), icon: Icon(Icons.home), backgroundColor: Colors.red),
@@ -50,9 +50,9 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
 class LessonPageTabBar extends StatelessWidget {
 
   final pages = [
-    CenterMessagePage("2.1頁", Colors.redAccent),
-    CenterMessagePage("2.2頁", Colors.yellow),
-    CenterMessagePage("2.3頁", Colors.pinkAccent),
+    CenterMessageWidget("2.1頁", Colors.redAccent),
+    CenterMessageWidget("2.2頁", Colors.yellow),
+    CenterMessageWidget("2.3頁", Colors.pinkAccent),
   ];
   final tabs = [Tab(text: "第2.1頁"), Tab(text: "第2.2頁"), Tab(text: "第2.3頁")];
 
@@ -79,12 +79,12 @@ class LessonPageTabBar extends StatelessWidget {
   }
 }
 
-class CenterMessagePage extends StatelessWidget {
+class CenterMessageWidget extends StatelessWidget {
 
   String centerMessage = "";
   Color backgroundColor = Colors.white;
 
-  CenterMessagePage(this.centerMessage, this.backgroundColor);
+  CenterMessageWidget(this.centerMessage, this.backgroundColor);
 
   @override
   Widget build(BuildContext context) {

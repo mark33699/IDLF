@@ -12,31 +12,90 @@ class LessonPageProvider extends StatefulWidget {
 class _LessonPageProviderState extends State<LessonPageProvider> {
 
   bool isLogin = false;
-  int pageIdx = 0;
+  int currentIndex = 0;
 
   final pages = [ //⭕️❌🆗🆖😌😔
-    PushNextWidget("❌", Colors.yellowAccent),
-    PushNextWidget("🆖", Colors.redAccent),
-    PushNextWidget("😔", Colors.green),
+    PushNextPage("❌", Colors.yellowAccent),
+    PushNextPage("🆖", Colors.redAccent),
+    PushNextPage("😔", Colors.green),
   ];
+
+  final items = [
+    BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "甲"),
+    BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "乙"),
+    BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "丙"),
+  ];
+
+  final keys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>()
+  ];
+
+  final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> thirdTabNavKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
+
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: items,
+        onTap: (idx){
+          if (idx == currentIndex) {
+            print("hey");
+//            firstTabNavKey.currentState.popUntil((route) => route.isFirst);
+            keys[currentIndex].currentState.popUntil((route) => route.isFirst);
+          }
+          currentIndex = idx;
+        },
+      ),
+      tabBuilder: (ctx, idx){
+
+        return CupertinoTabView(
+          navigatorKey: keys[idx],
+          builder: (BuildContext context) => CupertinoPageScaffold(
+            child: pages[idx],
+          ),
+        );
+
+        return CupertinoTabView(
+          navigatorKey: keys[idx],
+          builder: (BuildContext context) {
+            return SafeArea(
+              top: false,
+              bottom: false,
+              child: CupertinoApp(
+                home: CupertinoPageScaffold(
+                  child: pages[idx],
+                ),
+              ),
+            );
+          },
+        );
+
+//        return CupertinoPageScaffold(
+//          navigationBar: CupertinoNavigationBar(
+//            middle: Text("庫比蒂諾"),
+//          ),
+////          child: CenterMessageWidget("cup", Colors.white)
+//          child: pages[idx],
+//        );
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text("第十九堂課"),
       ),
-      body: pages[pageIdx],
+      body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: pageIdx,
-        items: [
-          BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "甲"),
-          BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "乙"),
-          BottomNavigationBarItem(icon: Icon(IcoFontIcons.brandMacOs), label: "丙"),
-        ],
+        currentIndex: currentIndex,
+        items: items,
         onTap: (idx) {
           setState(() {
-            pageIdx = idx;
+            currentIndex = idx;
           });
         },
       ),
@@ -73,12 +132,12 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
   }
 }
 
-class PushNextWidget extends StatelessWidget {
+class PushNextPage extends StatelessWidget {
 
   String centerMessage = "";
   Color backgroundColor = Colors.white;
 
-  PushNextWidget(this.centerMessage, this.backgroundColor);
+  PushNextPage(this.centerMessage, this.backgroundColor);
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +147,28 @@ class PushNextWidget extends StatelessWidget {
     final center = Container(
         color: backgroundColor,
         alignment: Alignment.center,
-        child: IconButton(
-          icon: Icon(Icons.next_week),
+        child:
+        CupertinoButton(
+          child: Icon(Icons.next_week),
           onPressed: (){
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => nextPage)
             );
           },
         )
+//        IconButton(
+//          icon: Icon(Icons.next_week),
+//          onPressed: (){
+//            Navigator.push(context,
+//                MaterialPageRoute(builder: (context) => nextPage)
+//            );
+//          },
+//        )
     );
 
+//    return CupertinoTabView(
+//      builder: (ctx) => center,
+//    );
     return center;
   }
 }
@@ -106,11 +177,14 @@ class PopPreviousPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("若登出就返回"),
-        ),
-        body: Container()
+//    return Scaffold(
+//        appBar: AppBar(
+//          title: Text("若登出就返回"),
+//        ),
+//        body: Container()
+//    );
+    return CupertinoPageScaffold(
+      child: Container()
     );
   }
 }

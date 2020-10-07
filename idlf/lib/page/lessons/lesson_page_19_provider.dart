@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
 
-import 'lesson_page_14_bottomNavigation_tabBar.dart';
-
 class LessonPageProvider extends StatefulWidget {
   @override
   _LessonPageProviderState createState() => _LessonPageProviderState();
@@ -15,9 +13,9 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
   int currentIndex = 0;
 
   final pages = [ //⭕️❌🆗🆖😌😔
-    PushNextPage("❌", Colors.yellowAccent),
-    PushNextPage("🆖", Colors.redAccent),
-    PushNextPage("😔", Colors.green),
+    PushNextPage("❌", Colors.orangeAccent, showAppBar: true),
+    PushNextPage("🆖", Colors.black12),
+    PushNextPage("😔", Colors.brown),
   ];
 
   final items = [
@@ -32,10 +30,6 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
     GlobalKey<NavigatorState>()
   ];
 
-  final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
-  final GlobalKey<NavigatorState> thirdTabNavKey = GlobalKey<NavigatorState>();
-
   @override
   Widget build(BuildContext context) {
 
@@ -44,8 +38,6 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
         items: items,
         onTap: (idx){
           if (idx == currentIndex) {
-            print("hey");
-//            firstTabNavKey.currentState.popUntil((route) => route.isFirst);
             keys[currentIndex].currentState.popUntil((route) => route.isFirst);
           }
           currentIndex = idx;
@@ -55,89 +47,34 @@ class _LessonPageProviderState extends State<LessonPageProvider> {
 
         return CupertinoTabView(
           navigatorKey: keys[idx],
-          builder: (BuildContext context) => CupertinoPageScaffold(
-            child: pages[idx],
-          ),
-        );
-
-        return CupertinoTabView(
-          navigatorKey: keys[idx],
-          builder: (BuildContext context) {
-            return SafeArea(
-              top: false,
-              bottom: false,
-              child: CupertinoApp(
-                home: CupertinoPageScaffold(
-                  child: pages[idx],
-                ),
+          builder: (BuildContext context) =>
+            CupertinoPageScaffold(
+              child: pages[idx],
+              navigationBar: idx != 1 ? null : CupertinoNavigationBar(
+                middle: Text("庫比蒂諾"),
               ),
-            );
-          },
+            ),
         );
-
-//        return CupertinoPageScaffold(
-//          navigationBar: CupertinoNavigationBar(
-//            middle: Text("庫比蒂諾"),
-//          ),
-////          child: CenterMessageWidget("cup", Colors.white)
-//          child: pages[idx],
-//        );
       },
-    );
-
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("第十九堂課"),
-      ),
-      body: pages[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        items: items,
-        onTap: (idx) {
-          setState(() {
-            currentIndex = idx;
-          });
-        },
-      ),
-      drawer: SizedBox(
-        width: 200,
-        child: Drawer(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 30, bottom: 16),
-                child: Icon(IcoFontIcons.waiterAlt, size: 100),
-              ),
-              ListTile(
-                title: Text(isLogin ? "登出" : "登入",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
-                ),
-                trailing: Switch(
-                  value: isLogin,
-                  onChanged: (isOn) {
-                    setState(() {
-                      isLogin = isOn;
-                    });
-                  },
-                )
-              )
-            ]
-          )
-        )
-      )
     );
   }
 }
 
-class PushNextPage extends StatelessWidget {
+class PushNextPage extends StatefulWidget {
 
   String centerMessage = "";
   Color backgroundColor = Colors.white;
+  bool showAppBar;// = false; //這邊給預設值沒用...要寫在建構子
 
-  PushNextPage(this.centerMessage, this.backgroundColor);
+  PushNextPage(this.centerMessage, this.backgroundColor, {this.showAppBar = false});
+
+  @override
+  _PushNextPageState createState() => _PushNextPageState();
+}
+
+class _PushNextPageState extends State<PushNextPage> {
+
+  bool isLogin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -145,31 +82,53 @@ class PushNextPage extends StatelessWidget {
     Widget nextPage = PopPreviousPage();
 
     final center = Container(
-        color: backgroundColor,
-        alignment: Alignment.center,
-        child:
-        CupertinoButton(
-          child: Icon(Icons.next_week),
-          onPressed: (){
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => nextPage)
-            );
-          },
-        )
-//        IconButton(
-//          icon: Icon(Icons.next_week),
-//          onPressed: (){
-//            Navigator.push(context,
-//                MaterialPageRoute(builder: (context) => nextPage)
-//            );
-//          },
-//        )
+      color: widget.backgroundColor,
+      alignment: Alignment.center,
+      child:
+      CupertinoButton(
+        child: Icon(Icons.next_week, size: 30),
+        onPressed: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => nextPage)
+          );
+        },
+      )
     );
 
-//    return CupertinoTabView(
-//      builder: (ctx) => center,
-//    );
-    return center;
+    final drawer = Drawer(
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 30, bottom: 16),
+            child: Icon(IcoFontIcons.waiterAlt, size: 100),
+          ),
+
+          ListTile(
+            title: Text(isLogin ? "登出" : "登入",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontSize: 20
+              ),
+            ),
+
+            trailing: Switch(
+              value: isLogin,
+              onChanged: (isOn) {
+                setState(() {
+                  isLogin = isOn;
+                });
+              },
+            )
+          )
+        ],
+      )
+    );
+
+    return Scaffold(
+      appBar: widget.showAppBar ? AppBar(title: Text("瑪提利尤")) : null,
+      drawer: widget.showAppBar ? SizedBox(width: 200, child: drawer) : null,
+      body: center,
+    );
   }
 }
 
@@ -177,14 +136,11 @@ class PopPreviousPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-//    return Scaffold(
-//        appBar: AppBar(
-//          title: Text("若登出就返回"),
-//        ),
-//        body: Container()
-//    );
-    return CupertinoPageScaffold(
-      child: Container()
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        child: Text("如果登出就會踢回前一頁"),
+      )
     );
   }
 }

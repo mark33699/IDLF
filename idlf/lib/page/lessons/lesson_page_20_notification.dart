@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:idlf/define.dart';
 
+final topLevel = 7;
+
 class LessonPageNotification extends StatefulWidget {
   @override
   _LessonPageNotificationState createState() => _LessonPageNotificationState();
@@ -13,7 +15,7 @@ class _LessonPageNotificationState extends State<LessonPageNotification> {
         appBar: AppBar(
           title: Text("Notification"),
         ),
-        body: PyramidWidget(7)
+        body: PyramidWidget(topLevel)
     );
   }
 }
@@ -21,7 +23,6 @@ class _LessonPageNotificationState extends State<LessonPageNotification> {
 class PyramidWidget extends StatefulWidget {
 
   final int level;
-
   const PyramidWidget(this.level);
 
   @override
@@ -30,21 +31,48 @@ class PyramidWidget extends StatefulWidget {
 
 class _PyramidWidgetState extends State<PyramidWidget> {
 
-  final topLevel = 7;
   final cubeLong = 25.0;
+  bool showLevel = false;
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.level);
+
+    if (widget.level == 1) {
+      print("me");
+      Future.delayed(Duration(seconds: 2)).then((value) {
+        print("go");
+        PyramidNotification(true).dispatch(context);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    final levelText = Text(widget.level.toString(),
+      style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold
+      ),
+    );
 
     final pyramid = Container(
       width: cubeLong * (widget.level * 2 -1),
       height: cubeLong * (topLevel + 1 - widget.level),
       color: rainbowColors[widget.level - 1],
-      child: Text(widget.level.toString(),
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold
-        ),
+      child: NotificationListener<PyramidNotification>(
+        onNotification: (notifi){
+          print("come");
+          if (notifi.ok) {
+            setState(() {
+              showLevel = true;
+            });
+          }
+          return true; //繼續向上傳遞
+        },
+        child: showLevel ? levelText : Container(),
       ),
     );
 
@@ -57,4 +85,9 @@ class _PyramidWidgetState extends State<PyramidWidget> {
         ),
     );
   }
+}
+
+class PyramidNotification extends Notification {
+  final bool ok;
+  PyramidNotification(this.ok);
 }

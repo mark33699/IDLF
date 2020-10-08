@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:icofont_flutter/icofont_flutter.dart';
 import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
 import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
 import 'package:idlf/page/lessons/lesson_page_13_customScrollView.dart';
+import 'package:idlf/page/lessons/lesson_page_14_bottomNavigation_tabBar.dart';
+import 'package:idlf/page/lessons/lesson_page_15_api_get.dart';
+import 'package:idlf/page/lessons/lesson_page_16_api_post.dart';
 import 'package:idlf/page/lessons/lesson_page_17_lifeCycle.dart';
+import 'package:idlf/page/lessons/lesson_page_18_inheritedWidget.dart';
 import 'package:idlf/page/lessons/lesson_page_19_provider.dart';
+import 'package:idlf/page/lessons/lesson_page_20_notification.dart';
 import 'package:idlf/page/lessons/lesson_page_21_imagePicker.dart';
-import 'lesson_page_14_bottomNavigation_tabBar.dart';
-import 'lesson_page_15_api_get.dart';
-import 'lesson_page_16_api_post.dart';
-import 'lesson_page_18_inheritedWidget.dart';
+import 'package:idlf/page/lessons/lesson_page_22_local_storage.dart';
+import 'package:idlf/page/lessons/lesson_page_23_push_notification.dart';
+import 'package:idlf/page/lessons/lesson_page_24_local_authentication.dart';
+import 'package:idlf/page/lessons/lesson_page_25_map.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
-import 'lesson_page_20_notification.dart';
 import 'lesson_page_3.dart';
 import 'lesson_page_4_text_field.dart';
 import 'lesson_page_5_button_dialog.dart';
@@ -46,6 +51,10 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.wifi), 19, "Provider", LessonPageProvider()),
     Lesson(Icon(Icons.trending_up), 20, "Notification", LessonPageNotification()),
     Lesson(Icon(Icons.image_outlined), 21, "ImagePicker", LessonPageImagePicker()),
+    Lesson(Icon(IcoFontIcons.database), 22, "Local Storage", LessonPageLocalStorage()),
+    Lesson(Icon(IcoFontIcons.sendMail), 23, "Push Notification", LessonPagePushNotification()),
+    Lesson(Icon(IcoFontIcons.fingerPrint), 24, "Local Authentication", LessonPageLocalAuthentication()),
+    Lesson(Icon(IcoFontIcons.map), 25, "Map", LessonPageMap()),
   ];
 
   @override

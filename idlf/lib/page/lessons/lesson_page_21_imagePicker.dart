@@ -21,6 +21,7 @@ class _LessonPageImagePickerState extends State<LessonPageImagePicker> {
     setState(() {
       if (theImage != null) {
         _imageFile = File(theImage.path);
+        wording = '';
       } else {
         wording = 'No image selected.';
       }
@@ -65,7 +66,7 @@ class _LessonPageImagePickerState extends State<LessonPageImagePicker> {
         ),
         body: Container(
           padding: EdgeInsets.all(8),
-          child: Column(
+          child: ListView(
             children: [
 
               _imageFile == null
@@ -81,7 +82,13 @@ class _LessonPageImagePickerState extends State<LessonPageImagePicker> {
                       _createButton(false)
                     ]
                 )
+              ),
+
+              Text(wording,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.redAccent),
               )
+
             ]
           )
         )

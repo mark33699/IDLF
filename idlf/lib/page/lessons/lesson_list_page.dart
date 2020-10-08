@@ -5,6 +5,7 @@ import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
 import 'package:idlf/page/lessons/lesson_page_13_customScrollView.dart';
 import 'package:idlf/page/lessons/lesson_page_17_lifeCycle.dart';
 import 'package:idlf/page/lessons/lesson_page_19_provider.dart';
+import 'package:idlf/page/lessons/lesson_page_21_imagePicker.dart';
 import 'lesson_page_14_bottomNavigation_tabBar.dart';
 import 'lesson_page_15_api_get.dart';
 import 'lesson_page_16_api_post.dart';
@@ -44,6 +45,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.trending_down), 18, "InheritedWidget", LessonPageInheritedWidget()),
     Lesson(Icon(Icons.wifi), 19, "Provider", LessonPageProvider()),
     Lesson(Icon(Icons.trending_up), 20, "Notification", LessonPageNotification()),
+    Lesson(Icon(Icons.image_outlined), 21, "ImagePicker", LessonPageImagePicker()),
   ];
 
   @override

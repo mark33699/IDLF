@@ -61,7 +61,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(IcoFontIcons.map), 27, "Map", LessonPageMap()),
   ];
 
-  void _launchURLByNumber(int number) async {
+  void _launchUrlByNumber(int number) async {
     String url = "";
 
     switch (number) {
@@ -109,7 +109,7 @@ class LessonListPage extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => lesson.page)
                 );
               } else {
-                _launchURLByNumber(lesson.lessonNumber);
+                _launchUrlByNumber(lesson.lessonNumber);
               }
             },
           );

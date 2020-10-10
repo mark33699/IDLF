@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
+import 'package:idlf/local_auth_example.dart';
 import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
 import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
@@ -58,6 +59,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(IcoFontIcons.database), 24, "Local Storage", LessonPageLocalStorage()),
     Lesson(Icon(IcoFontIcons.sendMail), 25, "Push Notification", LessonPagePushNotification()),
     Lesson(Icon(IcoFontIcons.fingerPrint), 26, "Local Authentication", LessonPageLocalAuthentication()),
+//    Lesson(Icon(IcoFontIcons.fingerPrint), 26, "Local Authentication", LocalAuthExample()),
     Lesson(Icon(IcoFontIcons.map), 27, "Map", LessonPageMap()),
   ];
 

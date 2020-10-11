@@ -10,6 +10,7 @@ class LessonPageLocalAuthentication extends StatefulWidget {
 
 class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentication> {
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final LocalAuthentication _localAuth = LocalAuthentication();
   String _canEvaluatePolicy = "";
   String _biometryType = "";
@@ -53,22 +54,28 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
   Future<void> _authenticate() async {
     print("驗證中");
     bool authenticated = false;
+
     try {
       authenticated = await _localAuth.authenticateWithBiometrics(
           localizedReason: 'Scan your fingerprint to authenticate',
-          useErrorDialogs: true,
+          stickyAuth: true,
+          useErrorDialogs: false,
           iOSAuthStrings: IOSAuthMessages(
               lockOut: "鎖",
               goToSettingsButton: "設定",
               goToSettingsDescription: "請設定",
               cancelButton: "算了"
-          ),
-          stickyAuth: true);
+          )
+      );
     } on PlatformException catch (e) {
       print("例外");
       print(e);
     }
+
     if (!mounted) return;
+
+    final result = authenticated ? "驗證成功" : "驗證失敗";
+    scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(result)));
 
   }
 
@@ -83,6 +90,7 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
   Widget build(BuildContext context) {
 
     return Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text("Local Authentication"),
         ),

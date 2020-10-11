@@ -52,5 +52,7 @@
 	<false/>
 	<key>NSFaceIDUsageDescription</key>
 	<string>show me the face</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>show me where are you</string>
 </dict>
 </plist>

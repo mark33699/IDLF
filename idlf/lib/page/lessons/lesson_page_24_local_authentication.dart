@@ -10,6 +10,8 @@ class LessonPageLocalAuthentication extends StatefulWidget {
 
 class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentication> {
 
+  final noEnrolledWording = "未啟用生物辨識";
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final LocalAuthentication _localAuth = LocalAuthentication();
   String _canEvaluatePolicy = "";
@@ -34,7 +36,7 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
 
     setState(() {
       if (availableBiometrics.isEmpty) {
-        _biometryType = "不支援";
+        _biometryType = noEnrolledWording;
       } else {
         switch (availableBiometrics.first) {
           case BiometricType.face:
@@ -44,7 +46,7 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
             _biometryType = "點我驗證Touch ID";
             break;
           default:
-            _biometryType = "不支援";
+            _biometryType = noEnrolledWording;
             break;
         }
       }
@@ -59,7 +61,7 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
       authenticated = await _localAuth.authenticateWithBiometrics(
           localizedReason: 'Scan your fingerprint to authenticate',
           stickyAuth: true,
-          useErrorDialogs: false,
+          useErrorDialogs: true,
           iOSAuthStrings: IOSAuthMessages(
               lockOut: "鎖",
               goToSettingsButton: "設定",
@@ -102,7 +104,8 @@ class _LessonPageLocalAuthenticationState extends State<LessonPageLocalAuthentic
                 Text("您的裝置是否支援生物辨識：$_canEvaluatePolicy"),
                 OutlineButton(
                     child: Text(_biometryType),
-                    onPressed: _biometryType == "不支援" ? null : _authenticate
+                    onPressed: _biometryType == noEnrolledWording ? null : _authenticate
+//                    onPressed: _authenticate
                 )
               ],
             )

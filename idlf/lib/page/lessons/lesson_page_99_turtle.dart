@@ -16,11 +16,12 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff01579b) //深藍
 
     final shapeSum = 1;
+    final ovalOffset = 0.4;
 
     List<TurtleCommand> getShapeCommand(Color color) {
       return [
 
-        //方形
+          //方形
 //        PenDown(), //開始
 //        SetColor((_) => color),
 //        SetStrokeWidth((_) => 2),
@@ -32,17 +33,79 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //        Right((_) => 360 / shapeSum), //每圈隔幾度
 //        PenUp(), //結束
 
-        //圓形
+          //圓形
+//        Left((_) => 90),
+//        Forward((_) => 57),
+//        Right((_) => 90),
 //        PenDown(), //開始
 //        SetColor((_) => color),
 //        SetStrokeWidth((_) => 2),
-//        Repeat((_) => 180, [ //線段數
-//          Forward((_) => 2), //走多遠
-//          Right((_) => 2) //轉幾度
+//        Repeat((_) => 360, [ //線段數
+//          Forward((_) => 1), //走多遠
+//          Right((_) => 1) //轉幾度
 //        ]),
-//
 //        Right((_) => 360 / shapeSum), //每圈隔幾度
 //        PenUp(), //結束
+
+        //橢圓
+
+        Left((_) => 90),
+        Forward((_) => 39),
+        Right((_) => 90),
+        PenDown(), //開始
+        SetColor((_) => color),
+        SetStrokeWidth((_) => 2),
+
+
+        //長一點 直一點
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => ovalOffset)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        //短一點 歪一點
+        Repeat((_) => 60, [
+          Forward((_) => 1),
+          Right((_) => 2 - ovalOffset)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        Repeat((_) => 60, [
+          Forward((_) => 1),
+          Right((_) => ovalOffset)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        Repeat((_) => 60, [
+          Forward((_) => 1),
+          Right((_) => 2 - ovalOffset)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => ovalOffset)
+        ]),
+
+        Right((_) => 360 / shapeSum), //每圈隔幾度
+        PenUp(), //結束
 
           //五芒星
           //這三步往左平移
@@ -58,18 +121,18 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //        PenUp(),
 
           //花瓣
-        PenDown(),
-        SetColor((_) => color),
-        Repeat((_) => 2, [ //半邊葉緣
-          Repeat((_) => 80, [
-                Forward((_) => 2.0),
-                Right((_) => 1.0)
-              ]),
-          Right((_) => 100)
-        ]),
-
-        Right((_) => 360 / shapeSum),
-        PenUp(),
+//        PenDown(),
+//        SetColor((_) => color),
+//        Repeat((_) => 2, [ //半邊葉緣
+//          Repeat((_) => 80, [
+//                Forward((_) => 2.0),
+//                Right((_) => 1.0)
+//              ]),
+//          Right((_) => 100)
+//        ]),
+//
+//        Right((_) => 360 / shapeSum),
+//        PenUp(),
 
       ];
     }
@@ -77,7 +140,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     List<TurtleCommand> turtleCommands = [];
     //大重複前轉向
 //    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
-    turtleCommands.add( Left((_) => 39.5) );  //單瓣花
+//    turtleCommands.add( Left((_) => 39.5) );  //單瓣花
 
     for (var index = 0;
         index < shapeSum;

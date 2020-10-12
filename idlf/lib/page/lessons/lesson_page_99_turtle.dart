@@ -19,21 +19,66 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     List<TurtleCommand> getShapeCommand(Color color) {
       return [
-        PenDown(), //開始
+
+        //方形
+//        PenDown(), //開始
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//          Repeat((_) => 4, [ //線段數
+//            Forward((_) => 100), //走多遠
+//            Right((_) => 90) //轉幾度
+//          ]),
+//
+//        Right((_) => 360 / shapeSum), //每圈隔幾度
+//        PenUp(), //結束
+
+        //圓形
+//        PenDown(), //開始
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        Repeat((_) => 180, [ //線段數
+//          Forward((_) => 2), //走多遠
+//          Right((_) => 2) //轉幾度
+//        ]),
+//
+//        Right((_) => 360 / shapeSum), //每圈隔幾度
+//        PenUp(), //結束
+
+          //五芒星
+          //這三步往左平移
+//        Left((_) => 90),
+//        Forward((_) => 62),
+//        Right((_) => 90),
+//
+//        PenDown(),
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        Right((_) => 18), //先稍微右偏再畫
+//        Repeat((_) => 5, [Forward((_) => 200), Right((_) => 144)]),
+//        PenUp(),
+
+          //花瓣
+        PenDown(),
         SetColor((_) => color),
-        SetStrokeWidth((_) => 2),
-        Repeat((_) => 1, [ //幾個圈
-          Repeat((_) => 4, [ //線段數
-            Forward((_) => 100.0), //走多遠
-            Right((_) => 90) //轉幾度
-          ]),
-          Right((_) => 360 / shapeSum), //每圈隔幾度
+        Repeat((_) => 2, [ //半邊葉緣
+          Repeat((_) => 80, [
+                Forward((_) => 2.0),
+                Right((_) => 1.0)
+              ]),
+          Right((_) => 100)
         ]),
-        PenUp(), //結束
+
+        Right((_) => 360 / shapeSum),
+        PenUp(),
+
       ];
     }
 
     List<TurtleCommand> turtleCommands = [];
+    //大重複前轉向
+//    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
+    turtleCommands.add( Left((_) => 39.5) );  //單瓣花
+
     for (var index = 0;
         index < shapeSum;
         index ++) {
@@ -47,13 +92,27 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         appBar: AppBar(
           title: Text("Turtle"),
         ),
-        body: AnimatedTurtleView(
-          animationDuration: Duration(seconds: 1),
-          child: Container(
-            width: double.infinity,
-            height: 400,
-          ),
-          commands: turtleCommands,
+        body: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedTurtleView(
+              animationDuration: Duration(seconds: 1),
+              commands: turtleCommands,
+              child: Container(
+                width: double.infinity,
+              ),
+            ),
+            Container(
+              width: 1,
+              height: double.infinity,
+              color: Colors.black,
+            ),
+            Container(
+              height: 1,
+              width: double.infinity,
+              color: Colors.black,
+            ),
+          ],
         )
     );
   }

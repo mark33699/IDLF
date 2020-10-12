@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:icofont_flutter/icofont_flutter.dart';
-import 'package:idlf/local_auth_example.dart';
 import 'package:idlf/model/Lesson.dart';
 import 'package:idlf/page/lessons/lesson_page_11.dart';
 import 'package:idlf/page/lessons/lesson_page_12_gridView.dart';
@@ -17,6 +16,7 @@ import 'package:idlf/page/lessons/lesson_page_22_local_storage.dart';
 import 'package:idlf/page/lessons/lesson_page_23_push_notification.dart';
 import 'package:idlf/page/lessons/lesson_page_24_local_authentication.dart';
 import 'package:idlf/page/lessons/lesson_page_25_map.dart';
+import 'package:twicon/twicon.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
@@ -28,6 +28,7 @@ import 'lesson_page_7_selector.dart';
 import 'lesson_page_8.dart';
 import 'lesson_page_9.dart';
 import 'lesson_page_10.dart';
+import 'lesson_page_99_turtle.dart';
 
 class LessonListPage extends StatelessWidget {
 
@@ -61,6 +62,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(IcoFontIcons.fingerPrint), 26, "Local Authentication", LessonPageLocalAuthentication()),
 //    Lesson(Icon(IcoFontIcons.fingerPrint), 26, "Local Authentication", LocalAuthExample()),
     Lesson(Icon(IcoFontIcons.map), 27, "Map", LessonPageMap()),
+    Lesson(Icon(TaiwanIcons.fortune), 99, "小烏龜", LessonPageTurtle()),
   ];
 
   void _launchUrlByNumber(int number) async {

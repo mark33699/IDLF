@@ -43,6 +43,8 @@ dependencies:
   local_auth: ^0.6.3+2
   google_maps_flutter: ^1.0.2
   location: ^3.0.2
+  flutter_turtle: ^0.3.4
+  twicon: ^0.1.1+1
 
 dev_dependencies:
   flutter_test:

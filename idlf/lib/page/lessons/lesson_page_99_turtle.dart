@@ -16,51 +16,26 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff01579b) //深藍
 
     final shapeSum = 1;
-    final ovalOffset = 0.4;
+
+    final waveHeight = 90; //浪高
+    final waveWidth = 1.0; //浪幅
+
+    final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形XD //越靠近1越像正圓
 
     List<TurtleCommand> getShapeCommand(Color color) {
       return [
 
-          //方形
-//        PenDown(), //開始
-//        SetColor((_) => color),
-//        SetStrokeWidth((_) => 2),
-//          Repeat((_) => 4, [ //線段數
-//            Forward((_) => 100), //走多遠
-//            Right((_) => 90) //轉幾度
-//          ]),
-//
-//        Right((_) => 360 / shapeSum), //每圈隔幾度
-//        PenUp(), //結束
-
-          //圓形
-//        Left((_) => 90),
-//        Forward((_) => 57),
-//        Right((_) => 90),
-//        PenDown(), //開始
-//        SetColor((_) => color),
-//        SetStrokeWidth((_) => 2),
-//        Repeat((_) => 360, [ //線段數
-//          Forward((_) => 1), //走多遠
-//          Right((_) => 1) //轉幾度
-//        ]),
-//        Right((_) => 360 / shapeSum), //每圈隔幾度
-//        PenUp(), //結束
-
         //橢圓
-
-        Left((_) => 90),
-        Forward((_) => 39),
-        Right((_) => 90),
-        PenDown(), //開始
+//        GoTo((_) => Offset(-42, 0)),
         SetColor((_) => color),
         SetStrokeWidth((_) => 2),
 
+        PenDown(), //開始
 
         //長一點 直一點
         Repeat((_) => 30, [
           Forward((_) => 1),
-          Right((_) => ovalOffset)
+          Right((_) => ovalCompression)
         ]),
 
         Repeat((_) => 30, [
@@ -71,7 +46,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         //短一點 歪一點
         Repeat((_) => 60, [
           Forward((_) => 1),
-          Right((_) => 2 - ovalOffset)
+          Right((_) => 2 - ovalCompression)
         ]),
 
         Repeat((_) => 30, [
@@ -81,7 +56,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
         Repeat((_) => 60, [
           Forward((_) => 1),
-          Right((_) => ovalOffset)
+          Right((_) => ovalCompression)
         ]),
 
         Repeat((_) => 30, [
@@ -91,7 +66,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
         Repeat((_) => 60, [
           Forward((_) => 1),
-          Right((_) => 2 - ovalOffset)
+          Right((_) => 2 - ovalCompression)
         ]),
 
         Repeat((_) => 30, [
@@ -101,7 +76,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
         Repeat((_) => 30, [
           Forward((_) => 1),
-          Right((_) => ovalOffset)
+          Right((_) => ovalCompression)
         ]),
 
         Right((_) => 360 / shapeSum), //每圈隔幾度
@@ -180,3 +155,70 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     );
   }
 }
+
+
+///三角形
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-50, 33)),
+//
+//        PenDown(), //開始
+//
+//        Right((_) => 30),
+//        Forward((_) => 100),
+//        Right((_) => 120),
+//        Forward((_) => 100),
+//        Right((_) => 120),
+//        Forward((_) => 100),
+//
+//        PenUp(), //結束
+
+///方形
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-50, 50)),
+//        PenDown(), //開始
+//
+//        Repeat((_) => 4, [
+//          Forward((_) => 100),
+//          Right((_) => 90)
+//        ]),
+//
+//        PenUp(), //結束
+
+///圓形
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-57.5, 0)),
+//        PenDown(), //開始
+//
+//        Repeat((_) => 360, [
+//          Forward((_) => 1),
+//          Right((_) => 1)
+//        ]),
+//
+//        PenUp(), //結束
+
+///波浪
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        Left((_) => waveHeight / 2), //初始角度須為浪高的一半, 才會筆直往上
+//        PenDown(), //開始
+//
+//        //step3. 總共幾波
+//        Repeat((_) => 3, [
+//
+//          //step1. 浪打過來～
+//          Repeat((_) => waveHeight, [
+//            Forward((_) => waveWidth),
+//            Right((_) => 1) //往右偏其實是畫左浪
+//          ]),
+//
+//          //step2. 浪打過去～
+//          Repeat((_) => waveHeight, [
+//            Forward((_) => waveWidth),
+//            Left((_) => 1) //反方向
+//          ]),
+//        ]),
+//
+//        PenUp(), //結束

@@ -23,19 +23,20 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形喔XD, 越靠近1越像正圓
 
     final squareLength = 200.0;
+    final squareSpinDegrees = 360 / shapeSum / 2;
 
     List<TurtleCommand> getShapeCommand(Color color, int index) {
       return [
 
         SetColor((_) => color),
         SetStrokeWidth((_) => 2),
-//        GoTo((_) => Offset(-50, 50)),
+
         Left((_) => 90),
         Forward((_) => squareLength / 2),
         Left((_) => 90),
         Forward((_) => squareLength / 2),
         ResetHeading(),
-        Right((_) => index * 9.0), //偏移
+        Right((_) => index * squareSpinDegrees), //偏移
 
         PenDown(), //開始
 
@@ -47,7 +48,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         PenUp(), //結束
 
         ResetPosition(),
-        Right((_) => 9.0), //位移
+        Right((_) => squareSpinDegrees), //位移
 
       ];
     }

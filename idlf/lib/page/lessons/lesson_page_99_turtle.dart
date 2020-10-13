@@ -15,27 +15,39 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 20;
+    final shapeSum = 10;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
 
     final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形喔XD, 越靠近1越像正圓
 
-    List<TurtleCommand> getShapeCommand(Color color, double degrees) {
+    final squareLength = 200.0;
+
+    List<TurtleCommand> getShapeCommand(Color color, int index) {
       return [
 
         SetColor((_) => color),
+        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-50, 50)),
+        Left((_) => 90),
+        Forward((_) => squareLength / 2),
+        Left((_) => 90),
+        Forward((_) => squareLength / 2),
+        ResetHeading(),
+        Right((_) => index * 9.0), //偏移
 
-//        GoTo((_) => Offset(-62, 72)),
-        Right((_) => 18),
-        Right((_) => degrees),
+        PenDown(), //開始
 
-        PenDown(),
-        Repeat((_) => 5, [Forward((_) => 150), Right((_) => 144)]), //單顆五芒星
-        PenUp(),
+        Repeat((_) => 4, [
+          Forward((_) => squareLength),
+          Right((_) => 90)
+        ]),
 
-        ResetHeading()
+        PenUp(), //結束
+
+        ResetPosition(),
+        Right((_) => 9.0), //位移
 
       ];
     }
@@ -51,7 +63,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
       final c = rainbowColors[index % rainbowColors.length];
 //      final c = Color(0xff01579b);
-      turtleCommands.addAll(getShapeCommand(c, 18.0 * index));
+      turtleCommands.addAll(getShapeCommand(c, index));
     }
 
     return Scaffold(
@@ -64,7 +76,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
             Container(
               color: Colors.black54,
               child: AnimatedTurtleView(
-                animationDuration: Duration(seconds: 1),
+                animationDuration: Duration(seconds: 5),
                 commands: turtleCommands,
                 child: Container(
                   width: double.infinity,

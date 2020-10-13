@@ -15,7 +15,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 2;
+    final shapeSum = 8;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
@@ -24,7 +24,13 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     final squareLength = 200.0;
     final squareSpinDegrees = 360 / shapeSum / 2;
-    final starSpinDegrees = 360 / shapeSum / 5;
+
+//    final starSpinDegrees = 360 / shapeSum / 5;
+    //固定重複4次
+    final starSpinDegrees = 90.0;
+    //固定重複5次
+//    final starSpinDegrees = 72.0;
+//    final starSpinDegrees = 144.0;
 
         List<TurtleCommand> getShapeCommand(Color color, int index) {
       return [
@@ -51,7 +57,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         PenUp(), //結束
 
         ResetPosition(),
-//        Right((_) => starSpinDegrees), //位移
+        Right((_) => starSpinDegrees), //位移
 
 
       ];

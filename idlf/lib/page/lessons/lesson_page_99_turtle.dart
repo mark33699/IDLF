@@ -32,6 +32,10 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
         PenDown(), //開始
 
+
+
+
+
         //長一點 直一點
         Repeat((_) => 30, [
           Forward((_) => 1),
@@ -44,27 +48,14 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         ]),
 
         //短一點 歪一點
-        Repeat((_) => 60, [
+        Repeat((_) => 30, [
           Forward((_) => 1),
           Right((_) => 2 - ovalCompression)
         ]),
 
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        Repeat((_) => 60, [
-          Forward((_) => 1),
-          Right((_) => ovalCompression)
-        ]),
+        //-
 
         Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        Repeat((_) => 60, [
           Forward((_) => 1),
           Right((_) => 2 - ovalCompression)
         ]),
@@ -79,7 +70,40 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
           Right((_) => ovalCompression)
         ]),
 
-        Right((_) => 360 / shapeSum), //每圈隔幾度
+        //-
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => ovalCompression)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 2 - ovalCompression)
+        ]),
+
+        //-
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 2 - ovalCompression)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => 1)
+        ]),
+
+        Repeat((_) => 30, [
+          Forward((_) => 1),
+          Right((_) => ovalCompression)
+        ]),
+
         PenUp(), //結束
 
           //五芒星

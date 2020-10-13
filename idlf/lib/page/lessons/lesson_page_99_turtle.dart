@@ -15,23 +15,27 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 2;
+    final shapeSum = 20;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
 
     final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形喔XD, 越靠近1越像正圓
 
-    List<TurtleCommand> getShapeCommand(Color color) {
+    List<TurtleCommand> getShapeCommand(Color color, double degrees) {
       return [
 
         SetColor((_) => color),
+
+//        GoTo((_) => Offset(-62, 72)),
+        Right((_) => 18),
+        Right((_) => degrees),
+
         PenDown(),
-
-        Repeat((_) => 5, [Forward((_) => 200), Right((_) => 144)]), //單顆五芒星
-        Right((_) => 360 / shapeSum), //for「重複成圈」
-
+        Repeat((_) => 5, [Forward((_) => 150), Right((_) => 144)]), //單顆五芒星
         PenUp(),
+
+        ResetHeading()
 
       ];
     }
@@ -47,7 +51,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
       final c = rainbowColors[index % rainbowColors.length];
 //      final c = Color(0xff01579b);
-      turtleCommands.addAll(getShapeCommand(c));
+      turtleCommands.addAll(getShapeCommand(c, 18.0 * index));
     }
 
     return Scaffold(
@@ -57,22 +61,25 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         body: Stack(
           alignment: Alignment.center,
           children: [
-            AnimatedTurtleView(
-              animationDuration: Duration(seconds: 1),
-              commands: turtleCommands,
-              child: Container(
-                width: double.infinity,
+            Container(
+              color: Colors.black54,
+              child: AnimatedTurtleView(
+                animationDuration: Duration(seconds: 1),
+                commands: turtleCommands,
+                child: Container(
+                  width: double.infinity,
+                ),
               ),
             ),
             Container(
               width: 1,
               height: double.infinity,
-              color: Colors.black,
+              color: Colors.white,
             ),
             Container(
               height: 1,
               width: double.infinity,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ],
         )
@@ -194,7 +201,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 ///五芒星
 //        SetColor((_) => color),
 //        SetStrokeWidth((_) => 2),
-//        GoTo((_) => Offset(-62, 0)), //這62怎麼來的我也不知道...
+//        GoTo((_) => Offset(-62, 72)), //這62怎麼來的我也不知道...
 //        PenDown(),
 //
 //        Right((_) => 18), //先稍微右偏再畫

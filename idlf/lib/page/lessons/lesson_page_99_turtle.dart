@@ -15,7 +15,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 10;
+    final shapeSum = 2;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
@@ -24,31 +24,35 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     final squareLength = 200.0;
     final squareSpinDegrees = 360 / shapeSum / 2;
+    final starSpinDegrees = 360 / shapeSum / 5;
 
-    List<TurtleCommand> getShapeCommand(Color color, int index) {
+        List<TurtleCommand> getShapeCommand(Color color, int index) {
       return [
 
+        ///旋轉方塊
         SetColor((_) => color),
         SetStrokeWidth((_) => 2),
 
         Left((_) => 90),
-        Forward((_) => squareLength / 2),
+        Forward((_) => 62),
         Left((_) => 90),
-        Forward((_) => squareLength / 2),
+        Forward((_) => 72),
         ResetHeading(),
-        Right((_) => index * squareSpinDegrees), //偏移
+
+        Right((_) => index * starSpinDegrees), //偏移
 
         PenDown(), //開始
 
-        Repeat((_) => 4, [
-          Forward((_) => squareLength),
-          Right((_) => 90)
+        Repeat((_) => 5, [
+          Forward((_) => 200),
+          Right((_) => 144)
         ]),
 
         PenUp(), //結束
 
         ResetPosition(),
-        Right((_) => squareSpinDegrees), //位移
+//        Right((_) => starSpinDegrees), //位移
+
 
       ];
     }
@@ -236,3 +240,26 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //        Right((_) => 360 / shapeSum), //for「重複成圈」
 //
 //        PenUp(),
+
+///旋轉方塊
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//
+//        Left((_) => 90),
+//        Forward((_) => squareLength / 2),
+//        Left((_) => 90),
+//        Forward((_) => squareLength / 2),
+//        ResetHeading(),
+//        Right((_) => index * squareSpinDegrees), //偏移
+//
+//        PenDown(), //開始
+//
+//        Repeat((_) => 4, [
+//          Forward((_) => squareLength),
+//          Right((_) => 90)
+//        ]),
+//
+//        PenUp(), //結束
+//
+//        ResetPosition(),
+//        Right((_) => squareSpinDegrees), //位移

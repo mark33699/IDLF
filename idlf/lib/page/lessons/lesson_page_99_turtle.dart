@@ -15,138 +15,38 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 1;
+    final shapeSum = 2;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
 
-    final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形XD //越靠近1越像正圓
+    final ovalCompression = 0.5; //需小於2, 不然會畫出奇妙的圖形喔XD, 越靠近1越像正圓
 
     List<TurtleCommand> getShapeCommand(Color color) {
       return [
 
-        //橢圓
-//        GoTo((_) => Offset(-42, 0)),
         SetColor((_) => color),
-        SetStrokeWidth((_) => 2),
+        PenDown(),
 
-        PenDown(), //開始
+        Repeat((_) => 5, [Forward((_) => 200), Right((_) => 144)]), //單顆五芒星
+        Right((_) => 360 / shapeSum), //for「重複成圈」
 
-
-
-
-
-        //長一點 直一點
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => ovalCompression)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        //短一點 歪一點
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 2 - ovalCompression)
-        ]),
-
-        //-
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 2 - ovalCompression)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => ovalCompression)
-        ]),
-
-        //-
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => ovalCompression)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 2 - ovalCompression)
-        ]),
-
-        //-
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 2 - ovalCompression)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => 1)
-        ]),
-
-        Repeat((_) => 30, [
-          Forward((_) => 1),
-          Right((_) => ovalCompression)
-        ]),
-
-        PenUp(), //結束
-
-          //五芒星
-          //這三步往左平移
-//        Left((_) => 90),
-//        Forward((_) => 62),
-//        Right((_) => 90),
-//
-//        PenDown(),
-//        SetColor((_) => color),
-//        SetStrokeWidth((_) => 2),
-//        Right((_) => 18), //先稍微右偏再畫
-//        Repeat((_) => 5, [Forward((_) => 200), Right((_) => 144)]),
-//        PenUp(),
-
-          //花瓣
-//        PenDown(),
-//        SetColor((_) => color),
-//        Repeat((_) => 2, [ //半邊葉緣
-//          Repeat((_) => 80, [
-//                Forward((_) => 2.0),
-//                Right((_) => 1.0)
-//              ]),
-//          Right((_) => 100)
-//        ]),
-//
-//        Right((_) => 360 / shapeSum),
-//        PenUp(),
+        PenUp(),
 
       ];
     }
 
     List<TurtleCommand> turtleCommands = [];
-    //大重複前轉向
+
+    //「重複成圈」之前先轉向
 //    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
-//    turtleCommands.add( Left((_) => 39.5) );  //單瓣花
 
     for (var index = 0;
         index < shapeSum;
         index ++) {
 
-//      final c = rainbowColors[index % rainbowColors.length];
-      final c = Color(0xff01579b);
+      final c = rainbowColors[index % rainbowColors.length];
+//      final c = Color(0xff01579b);
       turtleCommands.addAll(getShapeCommand(c));
     }
 
@@ -246,3 +146,73 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //        ]),
 //
 //        PenUp(), //結束
+
+///橢圓
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-42, 0)),
+//        PenDown(),
+//
+//        //step3. 兩個半圓
+//        Repeat((_) => 2, [
+//
+//          //step1. 往外畫
+//          //長一點 直一點
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => ovalCompression)
+//          ]),
+//          //正常弧度
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => 1)
+//          ]),
+//          //短一點 歪一點
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => 2 - ovalCompression)
+//          ]),
+//
+//          //step2. 往內畫
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => 2 - ovalCompression)
+//          ]),
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => 1)
+//          ]),
+//          Repeat((_) => 30, [
+//            Forward((_) => 1),
+//            Right((_) => ovalCompression)
+//          ]),
+//
+//        ]),
+//
+//        PenUp(), //結束
+
+///五芒星
+//        SetColor((_) => color),
+//        SetStrokeWidth((_) => 2),
+//        GoTo((_) => Offset(-62, 0)), //這62怎麼來的我也不知道...
+//        PenDown(),
+//
+//        Right((_) => 18), //先稍微右偏再畫
+//        Repeat((_) => 5, [Forward((_) => 200), Right((_) => 144)]),
+//
+//        PenUp(),
+
+///花瓣
+//        SetColor((_) => color),
+//        PenDown(),
+//
+//        Repeat((_) => 2, [ //半邊葉緣
+//          Repeat((_) => 80, [
+//                Forward((_) => 2.0),
+//                Right((_) => 1.0)
+//              ]),
+//          Right((_) => 100)
+//        ]),
+//        Right((_) => 360 / shapeSum), //for「重複成圈」
+//
+//        PenUp(),

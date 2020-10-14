@@ -47,68 +47,64 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
       return [
 
         SetColor((_) => color),
-        SetStrokeWidth((_) => 2),
-        GoTo((_) => Offset(-(defaultTriangleLength/2), defaultTriangleLength/3)),
-
-        PenDown(), //開始
+        GoTo((_) => Offset(-(defaultTriangleLength/2), defaultTriangleLength/3)), //每次都從左下角開始
         Right((_) => 30), //創世角度
+
+        //畫最大三角形
+        PenDown(),
         Repeat((_) => 3, [
           Forward((_) => defaultTriangleLength),
           Right((_) => 120),
         ]),
+        PenUp(),
 
+        //切換到下一個角
         Repeat((_) => cornerOrder, [ //第一個角不用轉
           Forward((_) => defaultTriangleLength),
-//          Label((_) => "text"),
           Right((_) => 120),
         ])
       ];
     }
 
     List<TurtleCommand> getShapeCommand(Color color, int index, int order) {
-
-      //不知為何在這邊算會全部變成最後的長度, 難道是小烏龜內部實作的關係？
-      //currentTriangleLength = currentTriangleLength / 2;
-
-      //這樣寫就可以...final才會存進去？
       final long = currentTriangleLength / pow(2, index+1);
-
       return [
 
         SetColor((_) => color),
-
-//        Log(currentTriangleLength.toString()), //Log印出來正常...
-        SetLabelHeight((_) => 15),
-
         If((_) => index != 0, [ //第一次不用轉, 由最大的三角形先轉好
           ResetHeading(),
           Right((_) => 30.0 + (120 * order)),
         ]),
 
-//        Label((_) => "text"),
+        //移到中線
         Forward((_) => long),
         Right((_) => 60.0),
 
+        //畫目前的小三角型
+        PenDown(),
         Repeat((_) => 3, [
           Forward((_) => long),
           Right((_) => 120),
         ]),
+        PenUp(),
       ];
     }
 
     List<TurtleCommand> turtleCommands = [];
-
+    turtleCommands.add(SetStrokeWidth((_) => 2));
     //「重複成圈」之前先轉向
 //    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
-    turtleCommands.addAll(getSierpinski(Colors.black, 0));
 
-    for (var index = 0;
-        index < shapeSum;
-        index ++) {
+    //三個角
+    for (var cornerOrder = 0; cornerOrder < 3; cornerOrder ++) {
+      turtleCommands.addAll(getSierpinski(Colors.black, cornerOrder));
 
-      final c = rainbowColors[index % rainbowColors.length];
-//      final c = Color(0xff01579b);
-      turtleCommands.addAll(getShapeCommand(c, index, 0));
+      for (var index = 0; index < shapeSum; index ++) {
+        final c = rainbowColors[index % rainbowColors.length];
+        turtleCommands.addAll(getShapeCommand(c, index, cornerOrder));
+      }
+
+      turtleCommands.add(ResetHeading());
     }
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -138,7 +134,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
               key: globalKey,
               color: Colors.black54,
               child: AnimatedTurtleView(
-                animationDuration: Duration(seconds: 1),
+                animationDuration: Duration(seconds: 10),
                 commands: turtleCommands,
                 child: Container(),
               ),

@@ -72,18 +72,18 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
         SetColor((_) => color),
 
 //        Log(currentTriangleLength.toString()), //Log印出來正常...
+        SetLabelHeight((_) => 15),
 
-        PenUp(),
+        ResetHeading(),
+        Right((_) => 30.0),
+//        Label((_) => "text"),
         Forward((_) => long),
-        Right((_) => 60),
-        PenDown(),
+        Right((_) => 60.0),
 
         Repeat((_) => 3, [
           Forward((_) => long),
           Right((_) => 120),
         ]),
-
-
       ];
     }
 

@@ -62,11 +62,16 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     List<TurtleCommand> getShapeCommand(Color color, int index) {
 
       //不知為何在這邊算會全部變成最後的長度, 難道是小烏龜內部實作的關係？
+      //currentTriangleLength = currentTriangleLength / 2;
+
+      //這樣寫就可以...final才會存進去？
       final long = currentTriangleLength / pow(2, index+1);
 
       return [
 
         SetColor((_) => color),
+
+//        Log(currentTriangleLength.toString()), //Log印出來正常...
 
         Forward((_) => long),
         Right((_) => 60),

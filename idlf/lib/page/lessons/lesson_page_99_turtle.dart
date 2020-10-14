@@ -21,7 +21,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     final globalKey = GlobalKey();
 
-    final shapeSum = 1;
+    final shapeSum = 3;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
@@ -38,34 +38,59 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //    final starSpinDegrees = 72.0;
 //    final starSpinDegrees = 144.0;
 
-    final triangleLength = turtleSize.width;
+    final defaultTriangleLength = turtleSize.width;
+    double currentTriangleLength;
 
-        List<TurtleCommand> getShapeCommand(Color color, int index) {
+    List<TurtleCommand> getSierpinski(Color color) {
       return [
 
         SetColor((_) => color),
         SetStrokeWidth((_) => 2),
-        GoTo((_) => Offset(-(triangleLength/2), triangleLength/3)),
+        GoTo((_) => Offset(-(defaultTriangleLength/2), defaultTriangleLength/3)),
 
         PenDown(), //開始
-
         Right((_) => 30), //創世角度
-
         Repeat((_) => 3, [
-          Forward((_) => triangleLength),
+          Forward((_) => defaultTriangleLength),
           Right((_) => 120),
         ]),
+      ];
+    }
 
-        //到中線
-        Forward((_) => triangleLength / 2),
+    List<TurtleCommand> getShapeCommand(Color color, int index) {
+
+      currentTriangleLength = defaultTriangleLength / 2;
+      print(currentTriangleLength);
+
+      return [
+
+        SetColor((_) => color),
+
+        Forward((_) => currentTriangleLength),
         Right((_) => 60),
 
         Repeat((_) => 3, [
-          Forward((_) => triangleLength / 2),
+          Forward((_) => currentTriangleLength),
           Right((_) => 120),
         ]),
 
-        PenUp(), //結束
+//        //到中線
+//        Forward((_) => defaultTriangleLength / 2),
+//        Right((_) => 60),
+//
+//        Repeat((_) => 3, [
+//          Forward((_) => defaultTriangleLength / 2),
+//          Right((_) => 120),
+//        ]),
+//
+//        //到中線
+//        Forward((_) => defaultTriangleLength / 4),
+//        Right((_) => 60),
+//
+//        Repeat((_) => 3, [
+//          Forward((_) => defaultTriangleLength / 4),
+//          Right((_) => 120),
+//        ]),
 
       ];
     }
@@ -74,6 +99,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     //「重複成圈」之前先轉向
 //    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
+    turtleCommands.addAll(getSierpinski(Colors.black));
 
     for (var index = 0;
         index < shapeSum;

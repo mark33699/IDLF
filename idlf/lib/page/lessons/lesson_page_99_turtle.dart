@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
 
 import '../../define.dart';
@@ -9,13 +10,18 @@ class LessonPageTurtle extends StatefulWidget {
 }
 
 class _LessonPageTurtleState extends State<LessonPageTurtle> {
+
+  Size turtleSize = Size.zero;
+
   @override
   Widget build(BuildContext context) {
 
     //Color(0xff54c5f8) //淺藍
     //Color(0xff01579b) //深藍
 
-    final shapeSum = 2000;
+    final globalKey = GlobalKey();
+
+    final shapeSum = 1;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
@@ -32,33 +38,34 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //    final starSpinDegrees = 72.0;
 //    final starSpinDegrees = 144.0;
 
+    final triangleLength = turtleSize.width;
+
         List<TurtleCommand> getShapeCommand(Color color, int index) {
       return [
 
-        ///旋轉方塊
         SetColor((_) => color),
         SetStrokeWidth((_) => 2),
-
-        Left((_) => 90),
-        Forward((_) => 62),
-        Left((_) => 90),
-        Forward((_) => 72),
-        ResetHeading(),
-
-        Right((_) => index * starSpinDegrees), //偏移
+        GoTo((_) => Offset(-(triangleLength/2), triangleLength/3)),
 
         PenDown(), //開始
 
-        Repeat((_) => 5, [
-          Forward((_) => 200),
-          Right((_) => 144)
+        Right((_) => 30), //創世角度
+
+        Repeat((_) => 3, [
+          Forward((_) => triangleLength),
+          Right((_) => 120),
+        ]),
+
+        //到中線
+        Forward((_) => triangleLength / 2),
+        Right((_) => 60),
+
+        Repeat((_) => 3, [
+          Forward((_) => triangleLength / 2),
+          Right((_) => 120),
         ]),
 
         PenUp(), //結束
-
-        ResetPosition(),
-        Right((_) => starSpinDegrees), //位移
-
 
       ];
     }
@@ -77,6 +84,22 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
       turtleCommands.addAll(getShapeCommand(c, index));
     }
 
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      final keyContext = globalKey.currentContext;
+      print(keyContext);
+      if (keyContext != null) {
+        // widget is visible
+        final box = keyContext.findRenderObject() as RenderBox;
+        print(box.size);
+
+        if (turtleSize == Size.zero){
+          setState(() {
+            turtleSize = box.size;
+          });
+        }
+      }
+    });
+
     return Scaffold(
         appBar: AppBar(
           title: Text("Turtle"),
@@ -85,21 +108,22 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
           alignment: Alignment.center,
           children: [
             Container(
+              key: globalKey,
               color: Colors.black54,
               child: AnimatedTurtleView(
-                animationDuration: Duration(seconds: 5),
+                animationDuration: Duration(seconds: 1),
                 commands: turtleCommands,
-                child: Container(
-                  width: double.infinity,
-                ),
+                child: Container(),
               ),
             ),
             Container(
+//              key: globalKey,
               width: 1,
               height: double.infinity,
               color: Colors.white,
             ),
             Container(
+//              key: globalKey,
               height: 1,
               width: double.infinity,
               color: Colors.white,

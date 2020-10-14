@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_turtle/flutter_turtle.dart';
@@ -21,7 +23,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     final globalKey = GlobalKey();
 
-    final shapeSum = 3;
+    final shapeSum = 4;
 
     final waveHeight = 90; //浪高
     final waveWidth = 1.0; //浪幅
@@ -39,7 +41,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //    final starSpinDegrees = 144.0;
 
     final defaultTriangleLength = turtleSize.width;
-    double currentTriangleLength;
+    double currentTriangleLength = defaultTriangleLength;
 
     List<TurtleCommand> getSierpinski(Color color) {
       return [
@@ -59,38 +61,21 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     List<TurtleCommand> getShapeCommand(Color color, int index) {
 
-      currentTriangleLength = defaultTriangleLength / 2;
-      print(currentTriangleLength);
+      //不知為何在這邊算會全部變成最後的長度, 難道是小烏龜內部實作的關係？
+      final long = currentTriangleLength / pow(2, index+1);
 
       return [
 
         SetColor((_) => color),
 
-        Forward((_) => currentTriangleLength),
+        Forward((_) => long),
         Right((_) => 60),
 
         Repeat((_) => 3, [
-          Forward((_) => currentTriangleLength),
+          Forward((_) => long),
           Right((_) => 120),
         ]),
 
-//        //到中線
-//        Forward((_) => defaultTriangleLength / 2),
-//        Right((_) => 60),
-//
-//        Repeat((_) => 3, [
-//          Forward((_) => defaultTriangleLength / 2),
-//          Right((_) => 120),
-//        ]),
-//
-//        //到中線
-//        Forward((_) => defaultTriangleLength / 4),
-//        Right((_) => 60),
-//
-//        Repeat((_) => 3, [
-//          Forward((_) => defaultTriangleLength / 4),
-//          Right((_) => 120),
-//        ]),
 
       ];
     }
@@ -109,6 +94,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //      final c = Color(0xff01579b);
       turtleCommands.addAll(getShapeCommand(c, index));
     }
+    print(turtleCommands.first.toString());
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       final keyContext = globalKey.currentContext;

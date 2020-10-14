@@ -43,7 +43,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
     final defaultTriangleLength = turtleSize.width;
     double currentTriangleLength = defaultTriangleLength;
 
-    List<TurtleCommand> getSierpinski(Color color) {
+    List<TurtleCommand> getSierpinski(Color color, int cornerOrder) {
       return [
 
         SetColor((_) => color),
@@ -56,10 +56,16 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
           Forward((_) => defaultTriangleLength),
           Right((_) => 120),
         ]),
+
+        Repeat((_) => cornerOrder, [ //第一個角不用轉
+          Forward((_) => defaultTriangleLength),
+//          Label((_) => "text"),
+          Right((_) => 120),
+        ])
       ];
     }
 
-    List<TurtleCommand> getShapeCommand(Color color, int index) {
+    List<TurtleCommand> getShapeCommand(Color color, int index, int order) {
 
       //不知為何在這邊算會全部變成最後的長度, 難道是小烏龜內部實作的關係？
       //currentTriangleLength = currentTriangleLength / 2;
@@ -74,8 +80,11 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 //        Log(currentTriangleLength.toString()), //Log印出來正常...
         SetLabelHeight((_) => 15),
 
-        ResetHeading(),
-        Right((_) => 30.0),
+        If((_) => index != 0, [ //第一次不用轉, 由最大的三角形先轉好
+          ResetHeading(),
+          Right((_) => 30.0 + (120 * order)),
+        ]),
+
 //        Label((_) => "text"),
         Forward((_) => long),
         Right((_) => 60.0),
@@ -91,7 +100,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
     //「重複成圈」之前先轉向
 //    turtleCommands.add( Right((_) => 32.5) );  //五瓣花
-    turtleCommands.addAll(getSierpinski(Colors.black));
+    turtleCommands.addAll(getSierpinski(Colors.black, 0));
 
     for (var index = 0;
         index < shapeSum;
@@ -99,9 +108,8 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
       final c = rainbowColors[index % rainbowColors.length];
 //      final c = Color(0xff01579b);
-      turtleCommands.addAll(getShapeCommand(c, index));
+      turtleCommands.addAll(getShapeCommand(c, index, 0));
     }
-    print(turtleCommands.first.toString());
 
     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       final keyContext = globalKey.currentContext;

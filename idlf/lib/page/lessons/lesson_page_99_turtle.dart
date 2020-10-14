@@ -73,8 +73,10 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
 
 //        Log(currentTriangleLength.toString()), //Log印出來正常...
 
+        PenUp(),
         Forward((_) => long),
         Right((_) => 60),
+        PenDown(),
 
         Repeat((_) => 3, [
           Forward((_) => long),

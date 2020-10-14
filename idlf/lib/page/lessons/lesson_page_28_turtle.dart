@@ -134,7 +134,7 @@ class _LessonPageTurtleState extends State<LessonPageTurtle> {
               key: globalKey,
               color: Colors.black54,
               child: AnimatedTurtleView(
-                animationDuration: Duration(seconds: 10),
+                animationDuration: Duration(seconds: 1),
                 commands: turtleCommands,
                 child: Container(),
               ),

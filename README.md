@@ -25,7 +25,7 @@ launch screens(啟動頁)：等待Android初始化
 splash screens(閃屏頁)：等待Dart初始化
 
 ### [Lesson 3 - 頁面跳轉](https://ithelp.ithome.com.tw/articles/10239301)
-![](http://fp1.fghrsh.net/2020/08/17/adc569aacce27297339e9c9576bfe88a.gif)
+![](https://fp1.fghrsh.net/2020/08/17/adc569aacce27297339e9c9576bfe88a.gif)
 * Flutter裡的世界裡什麼都是Widget
 就先把它當成UIView吧☘️☘️☘️
 * 有分StatelessWidget 跟 StatefulWidget

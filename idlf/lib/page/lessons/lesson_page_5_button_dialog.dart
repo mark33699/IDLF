@@ -59,7 +59,7 @@ class LessonPageButtonAndDialog extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-        title: Text("第五堂課"),
+        title: Text("Button & Dialog"),
         ),
         body:ListView(
           itemExtent: 100,

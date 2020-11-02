@@ -78,7 +78,7 @@ class LessonPageCustomScrollView extends StatelessWidget {
             pinned: false,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("第十三堂課"),
+              title: Text("CustomScrollView"),
               background: Image.asset("resource/images/fantasy_unicorn.jpg",
                 fit: BoxFit.cover
               ),

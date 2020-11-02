@@ -39,7 +39,7 @@ class _LessonPageLifeCycleState extends State<LessonPageLifeCycle> with WidgetsB
     print("A4. widget build");
     return Scaffold(
         appBar: AppBar(
-          title: Text("第十七堂課"),
+          title: Text("LifeCycle"),
         ),
         body: Column(
           children: [

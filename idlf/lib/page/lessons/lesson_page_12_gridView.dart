@@ -46,7 +46,7 @@ class _LessonPageGridViewState extends State<LessonPageGridView> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("第十二堂課"),
+          title: Text("GridView"),
         ),
         body: Container(
           color: Colors.grey,

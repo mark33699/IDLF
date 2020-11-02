@@ -11,7 +11,7 @@ class LessonPageImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第六堂課"),
+        title: Text("Image"),
       ),
       body: DefaultTabController(
           length: tabs.length,

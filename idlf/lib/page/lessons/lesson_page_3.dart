@@ -12,11 +12,10 @@ class LessonPageChild extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第三堂課"),
+        title: Text("SingleChild"),
       ),
       body: DefaultTabController(
           length: tabs.length,
-          initialIndex: tabs.length - 1,
           child: Column(
             children: <Widget>[
               Container(

@@ -37,7 +37,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(Icons.airplanemode_active), 0, "開場白", null),
     Lesson(Icon(IcoFontIcons.laughing), 1, "依然哈囉", null),
     Lesson(Icon(IcoFontIcons.businessMan), 2, "第一印象", null),
-    Lesson(Icon(Icons.mail_outline), 3, "跳轉", LessonPageRouting(showWording: "Hello\n你這不是從前一頁跳過來了嗎:)")),
+    Lesson(Icon(Icons.mail_outline), 3, "跳轉", LessonPageRouting()),
     Lesson(Icon(Icons.inbox), 4, "佈局", LessonPageLayout()),
     Lesson(Icon(Icons.not_listed_location), 5, "容器", LessonPageChild()),
     Lesson(Icon(Icons.print), 6, "文字與輸入", LessonPageTextAndField()),
@@ -86,7 +86,7 @@ class LessonListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    lessons = lessons.reversed.toList();
+//    lessons = lessons.reversed.toList();
 
     return Scaffold(
       appBar: AppBar(

@@ -41,7 +41,7 @@ class _LessonPageInheritedWidgetState extends State<LessonPageInheritedWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("第十八堂課"),
+          title: Text("InheritedWidget"),
           actions: <Widget>[
             DropdownButton(
               hint: Text("心情？"),

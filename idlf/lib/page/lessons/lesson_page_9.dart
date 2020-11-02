@@ -11,7 +11,7 @@ class LessonPageListViewHeaderAndRefresh extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第九堂課"),
+        title: Text("Sticky Header & Refresh"),
       ),
       body: DefaultTabController(
           initialIndex: 0,

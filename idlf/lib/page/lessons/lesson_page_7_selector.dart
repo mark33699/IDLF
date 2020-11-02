@@ -106,7 +106,7 @@ class _LessonPageSelectorState extends State<LessonPageSelector> {
     return Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          title: Text("第七堂課"),
+          title: Text("Selector"),
         ),
         body:SafeArea(
             child: Column(
@@ -158,6 +158,10 @@ class _LessonPageSelectorState extends State<LessonPageSelector> {
                           child: RaisedButton(
                             child: Text("BottomSheet"),
                             onPressed: (){
+                              setState(() {
+                                bottomWidgetHeight = 0.01;
+                              });
+
 //                              showModalMediaBottomSheet(context); //蓋頁
                               showMediaBottomSheet(context, scaffoldKey.currentState); //滑動
                             }),

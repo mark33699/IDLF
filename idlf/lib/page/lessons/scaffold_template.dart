@@ -5,7 +5,7 @@ class LessonPageX extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("第X堂課"),
+          title: Text(""),
         ),
         body: Container()
     );
@@ -22,7 +22,7 @@ class _LessonPageYState extends State<LessonPageY> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("第八堂課"),
+          title: Text(""),
         ),
         body: Container()
     );

@@ -67,7 +67,7 @@ class LessonPageTextAndField extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("第四堂課"),
+          title: Text("Text & Field"),
         ),
         body: ListView(
           scrollDirection: Axis.vertical,

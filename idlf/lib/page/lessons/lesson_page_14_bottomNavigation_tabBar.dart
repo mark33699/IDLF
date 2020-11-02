@@ -27,7 +27,7 @@ class _LessonPageBottomNavigationAndTabBarState extends State<LessonPageBottomNa
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第十四堂課"),
+        title: Text("BottomNavigation & TabBar"),
       ),
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -45,11 +45,13 @@ class _LessonPageListViewRefreshState extends State<LessonPageListViewRefresh> {
       //這種監聽法, 在一開始資料就沒有超過頁面時會一直轉(shrinkWrap無效, 該不會只有children才作用吧)
       //思路1. 改監聽loading, 2.偷安插末筆資料, 3. 找其他可用的position
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        setState(() {
-          if (currentPage < maxPage) {
-            currentPage ++;
-            fibonacci.addAll(_createFib());
-          }
+        Future.delayed(Duration(seconds: 1)).then((value) {
+          setState(() {
+            if (currentPage < maxPage) {
+              currentPage ++;
+              fibonacci.addAll(_createFib());
+            }
+          });
         });
       }
     });

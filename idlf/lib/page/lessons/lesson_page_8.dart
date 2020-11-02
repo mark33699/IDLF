@@ -12,7 +12,7 @@ class LessonPageListViewChildrenAndBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第八堂課"),
+        title: Text("use Children or Builder"),
       ),
       body: DefaultTabController(
         length: tabs.length,

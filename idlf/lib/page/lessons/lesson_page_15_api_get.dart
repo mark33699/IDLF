@@ -52,7 +52,7 @@ class _LessonPageApiGetState extends State<LessonPageApiGet> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("第十五堂課"),
+          title: Text("API GET"),
         ),
         body: (currentUsers == null) ? hud : list
     );

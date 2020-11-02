@@ -13,7 +13,7 @@ class LessonPageLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("第二堂課"),
+        title: Text("MultiChild"),
       ),
       body: DefaultTabController(
           length: tabs.length,

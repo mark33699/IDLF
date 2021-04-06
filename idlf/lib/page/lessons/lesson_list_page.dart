@@ -19,6 +19,7 @@ import 'package:idlf/page/lessons/lesson_page_25_map.dart';
 import 'package:idlf/turtle_example.dart';
 import 'package:twicon/twicon.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'lesson_page_100_touch.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -65,6 +66,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(IcoFontIcons.map), 27, "Map", LessonPageMap()),
     Lesson(Icon(TaiwanIcons.fortune), 28, "小烏龜", LessonPageTurtle()),
     Lesson(Icon(TaiwanIcons.taiwanese_bag), 99, "大烏龜", TurtleExample()),
+    Lesson(Icon(Icons.fiber_new), 100, "觸摸", LessonPageTouchAndGesture()),
   ];
 
   void _launchUrlByNumber(int number) async {
@@ -86,7 +88,7 @@ class LessonListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-//    lessons = lessons.reversed.toList();
+    lessons = lessons.reversed.toList();
 
     return Scaffold(
       appBar: AppBar(

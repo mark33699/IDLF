@@ -7,8 +7,8 @@ class LessonPageTouchAndGesture extends StatefulWidget {
 }
 
 class _LessonPageTouchAndGestureState extends State<LessonPageTouchAndGesture> {
-  final pages = [LessonPageTouch(), LessonPageTouch()];
-  final tabs = [Tab(text: "觸摸行為"), Tab(text: "手勢")];
+  final pages = [LessonPageTouch(), LessonPageGesture()];
+  final tabs = [Tab(text: "觸摸行為"), Tab(text: "手勢拖曳")];
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +73,7 @@ class _LessonPageTouchState extends State<LessonPageTouch> {
               onPointerDown: (event) => setState(() {
                 currentDown = "outside\n" + currentDown;
               }),
+              //behavior: currentBehavior, //改這邊也無效
             ),
             Listener(
               child: ConstrainedBox(
@@ -90,6 +91,50 @@ class _LessonPageTouchState extends State<LessonPageTouch> {
           ],
         ),
         Expanded(child: SingleChildScrollView(child: Text(currentDown)))
+      ],
+    );
+  }
+}
+
+//GestureGestureGestureGestureGestureGestureGestureGestureGestureGestureGesture
+
+class LessonPageGesture extends StatefulWidget {
+  @override
+  _LessonPageGestureState createState() => _LessonPageGestureState();
+}
+
+class _LessonPageGestureState extends State<LessonPageGesture> {
+  double _top = 0.0; //距顶部的偏移
+  double _left = 0.0;//距左边的偏移
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Positioned(
+          top: _top,
+//          left: _left, //不更新left就代表限制垂直滑動
+          child: GestureDetector(
+            child: CircleAvatar(child: Text("A")),
+            //手指按下时会触发此回调
+            onPanDown: (DragDownDetails e) {
+              //打印手指按下的位置(相对于屏幕)
+              print("用户手指按下：${e.globalPosition}");
+            },
+            //手指滑动时会触发此回调
+            onPanUpdate: (DragUpdateDetails e) {
+              //用户手指滑动时，更新偏移，重新构建
+              setState(() {
+//                _left += e.delta.dx;
+                _top += e.delta.dy;
+              });
+            },
+            onPanEnd: (DragEndDetails e){
+              //该属性代表用户抬起手指时的滑动速度(包含x、y两个轴的），常见的效果是根据用户抬起手指时的速度做一个减速动画。
+              print(e.velocity);
+            },
+          ),
+        )
       ],
     );
   }

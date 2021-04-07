@@ -28,7 +28,10 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
         appBar: AppBar(
           title: Text("Animate"),
         ),
-        body: AnimatedImage(animation: animation)
+        body: GrowTransition(
+          child: Image.asset("resource/images/fantasy_unicorn.jpg"),
+          animation: animation
+        )
     );
   }
 
@@ -39,16 +42,24 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
   }
 }
 
-class AnimatedImage extends AnimatedWidget {
-  AnimatedImage({Key key, Animation<double> animation})
-      : super(key: key, listenable: animation);
+class GrowTransition extends StatelessWidget {
+  GrowTransition({this.child, this.animation});
+
+  final Widget child;
+  final Animation<double> animation;
 
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
     return new Center(
-      child: Image.asset("resource/images/fantasy_unicorn.jpg",
-          width: animation.value,
-          height: animation.value
+      child: new AnimatedBuilder(
+        child: child,
+        animation: animation,
+        builder: (BuildContext context, Widget child) {
+          return new Container(
+            child: child,
+            height: animation.value,
+            width: animation.value,
+          );
+        }
       ),
     );
   }

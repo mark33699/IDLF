@@ -17,10 +17,7 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
     //使用弹性曲线
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceIn);
     //图片宽高从0变到300
-    animation = new Tween(begin: 0.0, end: 300.0).animate(animation) //用animation生動畫, 而不是用controller
-      ..addListener(() { //兩個點代表忽略, 實際assign的是animate, 不是addListener的結果
-        setState(()=>{});
-      });
+    animation = new Tween(begin: 0.0, end: 300.0).animate(animation); //用animation生動畫, 而不是用controller
     //启动动画(正向执行)
     controller.forward();
   }
@@ -31,12 +28,7 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
         appBar: AppBar(
           title: Text("Animate"),
         ),
-        body: Center(
-          child: Image.asset("resource/images/fantasy_unicorn.jpg",
-              width: animation.value,
-              height: animation.value
-          ),
-        )
+        body: AnimatedImage(animation: animation)
     );
   }
 
@@ -44,5 +36,20 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
     //路由销毁时需要释放动画资源
     controller.dispose();
     super.dispose();
+  }
+}
+
+class AnimatedImage extends AnimatedWidget {
+  AnimatedImage({Key key, Animation<double> animation})
+      : super(key: key, listenable: animation);
+
+  Widget build(BuildContext context) {
+    final Animation<double> animation = listenable;
+    return new Center(
+      child: Image.asset("resource/images/fantasy_unicorn.jpg",
+          width: animation.value,
+          height: animation.value
+      ),
+    );
   }
 }

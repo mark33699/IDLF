@@ -14,8 +14,10 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
     super.initState();
     controller = new AnimationController(
         duration: const Duration(seconds: 3), vsync: this);
+    //使用弹性曲线
+    animation = CurvedAnimation(parent: controller, curve: Curves.bounceIn);
     //图片宽高从0变到300
-    animation = new Tween(begin: 0.0, end: 300.0).animate(controller)
+    animation = new Tween(begin: 0.0, end: 300.0).animate(animation) //用animation生動畫, 而不是用controller
       ..addListener(() { //兩個點代表忽略, 實際assign的是animate, 不是addListener的結果
         setState(()=>{});
       });

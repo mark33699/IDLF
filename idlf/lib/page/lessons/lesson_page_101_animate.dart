@@ -13,7 +13,7 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
   initState() {
     super.initState();
     controller = new AnimationController(
-        duration: const Duration(seconds: 3), vsync: this);
+        duration: const Duration(seconds: 1), vsync: this);
     //使用弹性曲线
     animation = CurvedAnimation(parent: controller, curve: Curves.bounceIn);
     //图片宽高从0变到300
@@ -29,8 +29,32 @@ class _LessonPageAnimateState extends State<LessonPageAnimate>  with SingleTicke
           title: Text("Animate"),
         ),
         body: GrowTransition(
-          child: Image.asset("resource/images/fantasy_unicorn.jpg"),
-          animation: animation
+          animation: animation,
+          child: InkWell(
+            child: Hero(
+              tag: "mark",
+              child: Image.asset("resource/images/fantasy_unicorn.jpg",)
+            ),
+            onTap: (){
+              Navigator.push(context,
+                PageRouteBuilder(
+                  pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+                    return new FadeTransition(
+                      opacity: animation,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          title: Text("大图"),
+                        ),
+                        body: Hero(
+                          tag: "mark", //唯一标记，前后两个路由页Hero的tag必须相同
+                          child: Image.asset("resource/images/fantasy_unicorn.jpg", fit: BoxFit.none),
+                        ),
+                      ),
+                    );
+                  })
+              );
+            },
+          ),
         )
     );
   }

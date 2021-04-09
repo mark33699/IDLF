@@ -21,8 +21,9 @@ void main() {
 
 //  debugPaintPointersEnabled = true;
 
-//  runApp(MarkApp());
+//print("罷工");
   runApp(LessonApp());
+//  runApp(MarkApp());
 //  runApp(MyApp());
 //  runApp(BottomNavigationApp());
 //  runApp(GridApp());

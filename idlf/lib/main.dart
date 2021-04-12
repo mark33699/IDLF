@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_file_path_provider/flutter_file_path_provider.dart';
+import 'package:idlf/L10N.dart';
 import 'package:idlf/define.dart';
 import 'package:idlf/page/bottom_navigation_page_2.dart';
 import 'package:idlf/page/bottom_navigation_page_3.dart';
@@ -54,6 +55,13 @@ class LessonApp extends StatelessWidget {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        localizationsDelegates: [
+          L10NDelegate()
+        ],
+        supportedLocales: [
+          const Locale('en', 'US'), // 美国英语
+          const Locale('zh', 'CN'), // 中文简体
+        ],
         home: LessonListPage()
     );
   }

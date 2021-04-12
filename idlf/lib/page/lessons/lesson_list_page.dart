@@ -21,6 +21,7 @@ import 'package:idlf/turtle_example.dart';
 import 'package:twicon/twicon.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'lesson_page_100_touch_gesture.dart';
+import 'lesson_page_102_l10n_i18n.dart';
 import 'lesson_page_1_routing.dart';
 import 'lesson_page_2.dart';
 import 'lesson_page_3.dart';
@@ -69,6 +70,7 @@ class LessonListPage extends StatelessWidget {
     Lesson(Icon(TaiwanIcons.taiwanese_bag), 99, "大烏龜", TurtleExample()),
     Lesson(Icon(Icons.fiber_new), 100, "手勢", LessonPageTouchAndGesture()),
     Lesson(Icon(Icons.fiber_new), 101, "動畫", LessonPageAnimate()),
+    Lesson(Icon(Icons.fiber_new), 102, "多語言", LessonPageL10n()),
   ];
 
   void _launchUrlByNumber(int number) async {

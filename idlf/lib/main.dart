@@ -12,6 +12,7 @@ import 'package:idlf/page/home_page.dart';
 import 'package:idlf/page/form_page.dart';
 import 'package:idlf/page/lessons/lesson_list_page.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
 
@@ -56,6 +57,7 @@ class LessonApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
           L10NDelegate()
         ],
         supportedLocales: [

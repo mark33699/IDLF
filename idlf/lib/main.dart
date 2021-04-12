@@ -56,6 +56,7 @@ class LessonApp extends StatelessWidget {
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
+        locale: const Locale('zh', 'CN'), //手动指定locale, 但還是以系統的為準
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           L10NDelegate()
@@ -64,6 +65,10 @@ class LessonApp extends StatelessWidget {
           const Locale('en', 'US'), // 美国英语
           const Locale('zh', 'CN'), // 中文简体
         ],
+        title: "I.D.L.F", //只有Android會在App切換列表看到, iOS用不到
+        onGenerateTitle: (context){ //如果App Title也要在地化, 就要用這個callback
+          return L10N.of(context).appTitle;
+        },
         home: LessonListPage()
     );
   }

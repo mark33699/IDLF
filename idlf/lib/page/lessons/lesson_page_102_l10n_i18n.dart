@@ -11,7 +11,7 @@ class _LessonPageL10nState extends State<LessonPageL10n> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(L10N.of(context).title),
+          title: Text(L10N.of(context).l10nTitle),
         ),
         body: Container()
     );

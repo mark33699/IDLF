@@ -12,8 +12,11 @@ class L10N {
     return Localizations.of<L10N>(context, L10N);
   }
 
-  //Locale相关值，title为应用标题
-  String get title {
+  //Locale相关值
+  String get appTitle {
+    return isZh ? "iOS工程師學Flutter " : "iOS Developer Learning Flutter";
+  }
+  String get l10nTitle {
     return isZh ? "Flutter应用" : "Flutter APP";
   }
 }
